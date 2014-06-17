@@ -1,0 +1,5 @@
+body{
+	background: ##d3d3d3;
+	background-image: url("../img/fabric2a.png"), url("../img/fabric2b.png");
+	background-repeat: repeat-x, repeat;
+}

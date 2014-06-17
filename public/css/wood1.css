@@ -1,0 +1,9 @@
+body {
+  background: ##c6c6c6;
+  background-image: url("../img/wood1a.png"), url("../img/wood1b.png");
+  background-repeat: repeat-y, repeat;
+}
+.navbar-inverse {
+  background-color: #FFFFFF;
+  border-color: #080808;
+}

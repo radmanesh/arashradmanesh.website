@@ -1,0 +1,5 @@
+body{
+	background: ##a1a1a1;
+	background-image: url("../img/paper1a.png"), url("../img/paper1b.png");
+	background-repeat: repeat-x, repeat;
+}
