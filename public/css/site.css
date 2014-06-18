@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'B Roya';
-  src: local('☺'), local('B Roya'), url('../fonts/2roya.otf') format('opentype');
+  src: local('B Roya'), url('../fonts/2roya.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
 }
@@ -16,10 +16,25 @@
   font-weight: bold;
   font-style: normal;
 }
+
+/**
+  General
+*/
 body {
   padding-top: 50px;
   font-family: Tahoma, 'Iranian Sans', Arial;
 }
+a {
+  color: #5b6268;
+}
+a:hover,
+a:focus {
+  text-decoration: none;
+  color: #5b6268;
+}
+
+
+
 .navbar-brand {
   font-family: 'Iranian Sans', Tahmoa;
   font-weight: bold;
@@ -47,7 +62,6 @@ body {
     padding: 70px 20px 20px;
     background-color: rgba(60, 60, 60, 0.85);
     color: #eeeeee;
-    border-left: 1px solid #eee;
   }
   .sidebar a {
     font-size: 16px;
@@ -55,9 +69,7 @@ body {
   }
 }
 
-.blog-teaser .body{
-  font-size: 18px;
-}
+
 
 /* Sidebar navigation */
 .nav-sidebar {
@@ -75,10 +87,33 @@ body {
   background-color: #428bca;
 }
 
-.blog-post {
-  background-color: rgba(209, 209, 209, 0.7);
-  margin: 20px;
+/**
+* blog related
+*/
+div.blog-post-area{
+  margin: 10px;
+  padding: 10px;
+  background-color: rgba(209, 209, 209, 0.4);
+}
+
+.blog-teaser .body{
+  font-size: 18px;
+}
+.blog-teaser .btn {
+  float: left;
+}
+/* Blog main page paging */
+.paging {
+  text-align: left;
+}
+
+article.blog-post , aside.social-icons , aside.comments , .create-comment{
+  margin: 10px;
   padding: 10px 30px 10px 30px;
+}
+
+article.blog-post{
+  background-color: rgba(209, 209, 209, 0.7);
 }
 .blog-post p{
   text-align: justify;
@@ -88,3 +123,57 @@ body {
   padding-right: 0px;
 }
 
+/**
+  articles style
+*/
+aside.social-icons{
+  background-color: rgba(70,70,70,0.4);
+}
+.social-icon:first-child {
+  margin-left: 70px;
+}
+.social-icon:last-child {
+  margin-left: 0px;
+}
+
+aside.comments{
+  background-color: rgba(220,220,220,0.7);
+}
+aside.comments .comment{
+  margin: 100px 0 0 0;
+  padding: 10px;
+}
+article.comment{
+  background-color: rgba(86, 86, 86, 0.4);
+}
+
+article.comment.reply{
+  background-color: rgba(61, 61, 61, 0.6);
+}
+
+aside.create-comment{
+  margin-bottom: 10px;
+  background-color: rgba(220,220,220,0.5);
+}
+
+/* .blog-main:before {
+  right: +16px;
+}
+.blog-aside:before {
+  left: -15px;
+}
+ */
+
+.blog-main:before,
+.blog-aside:before {
+  border-left: 0px;
+}
+aside.blog-aside{
+  background-color: rgba(209, 209, 209, 0.4);
+} 
+aside.comments .comment.reply {
+  margin-right: 100px;
+}
+aside.comments .comment header img {
+  float: right;
+}
