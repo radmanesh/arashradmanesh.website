@@ -1,1 +1,6 @@
 public/css/_pgbackup
+.classpath
+.project
+db
+test
+tmp

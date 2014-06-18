@@ -1,18 +1,18 @@
 @font-face {
   font-family: 'B Roya';
-  src: local('B Roya'), url('../fonts/2roya.otf') format('opentype');
+  src: url('/public/fonts/2roya.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
-  font-family: 'Iranian Sans';
-  src: url('../fonts/irsans.ttf') format('truetype');
+  font-family: 'IranianSans';
+  src: url('/public/fonts/irsans.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
-  font-family: 'Iranian Sans';
-  src: url('../fonts/irsansb.ttf') format('truetype');
+  font-family: 'IranianSans';
+  src: url('/public/fonts/irsansb.ttf') format('truetype');
   font-weight: bold;
   font-style: normal;
 }
@@ -22,7 +22,7 @@
 */
 body {
   padding-top: 50px;
-  font-family: Tahoma, 'Iranian Sans', Arial;
+  font-family:'IranianSans', Tahoma, 'B Roya' , Arial;
 }
 a {
   color: #5b6268;
@@ -33,10 +33,15 @@ a:focus {
   color: #5b6268;
 }
 
-
+.page-header{
+  color: black;
+  font-weight: bold;
+  margin: 25px 0 20px;
+  border-bottom: 2px solid #333;
+}
 
 .navbar-brand {
-  font-family: 'Iranian Sans', Tahmoa;
+  font-family: 'IranianSans', Tahmoa;
   font-weight: bold;
   font-size: 20px;
 }
@@ -98,9 +103,14 @@ div.blog-post-area{
 
 .blog-teaser .body{
   font-size: 18px;
+  padding-left: 25px;
+  padding-right: 25px;
+  text-align: justify;
 }
 .blog-teaser .btn {
   float: left;
+  margin-right: 0px;
+  margin-left: 25px;
 }
 /* Blog main page paging */
 .paging {

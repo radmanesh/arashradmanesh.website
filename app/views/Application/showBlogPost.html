@@ -1,72 +1,5 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-<meta charset="utf-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="">
-<meta name="author" content="">
-
-<link rel="shortcut icon" href="public/ico/favicon.ico">
-
-<title>تمسخر رونالدو توسط روزنامه آلمانی</title>
-<link href="public/css/bootstrap.min.css" rel="stylesheet">
-<link href="public/css/bootstrap-theme.min.css" rel="stylesheet">
-<link href="public/css/bootstrap-rtl.min.css" rel="stylesheet">
-
-<link rel="stylesheet" href="public/css/styles-bluegreen.css" id="theme-styles">
-<link rel="stylesheet" href="public/css/font-awesome.min.css" id="theme-styles">
-
-<link id="bgstyle" href="public/css/wood1.css" rel="stylesheet">
-
-<link href="public/css/site.css" rel="stylesheet">
-
-</head>
-
-<body>
-  <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-          <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span
-            class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="#">آرش رادمنش</a>
-      </div>
-      <div class="navbar-collapse collapse">
-        <ul class="nav navbar-nav navbar-left">
-          <li><a href="#">بلاگ</a></li>
-          <li><a href="#">کتابخانه</a></li>
-          <li><a href="#">متفرقه</a></li>
-          <li><a href="#">درباره</a></li>
-        </ul>
-        <form class="navbar-form navbar-left">
-          <input type="text" class="form-control" placeholder="جستجو...">
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <div class="container-fluid">
-    <div class="row">
-      <!-- sidebar -->
-      <div class="col-sm-3 sidebar">
-        <div class="btn-group cssControls">
-          <button type="button" class="btn btn-default" data-cssfile="wood1.css">bg 1</button>
-          <button type="button" class="btn btn-primary" data-cssfile="fabric2.css">bg 2</button>
-          <button type="button" class="btn btn-success" data-cssfile="paper1.css">bg 3</button>
-        </div>
-
-        <h3>سخن/هیچ/معرفی</h3>
-        <img src="public/img/5.png" class="img-responsive img-rounded">
-        <ul class="nav nav-list nav-sidebar">
-          <li><a href="#" class="btn btn-link" style="text-align: right;">آخرین پست‌های بلاگ</a></li>
-          <li><a href="#" class="btn btn-link" style="text-align: right;">رزومه</a></li>
-          <li><a href="#" class="btn btn-link" style="text-align: right;">نوشته‌های خودم</a></li>
-          <li><a href="#" class="btn btn-link" style="text-align: right;">آثار ترجمه</a></li>
-        </ul>
-      </div>
+#{extends 'main.html' /}
+#{set title:'Home' /}
 
       <!-- blog main -->
       <div class="col-sm-9 col-sm-offset-3">
@@ -79,7 +12,7 @@
                   <header>
                     <h1>خیلی از آن ها متنفر نباش</h1>
                     <div class="lead-image">
-                      <img src="public/img/hands-big.png" alt="Hands" class="img-responsive">
+                      <img src="@{'public/img/hands-big.png'}" alt="Hands" class="img-responsive">
                       <div class="meta clearfix">
 
                         <div class="author">
@@ -215,7 +148,7 @@
 
                   <article class="comment">
                     <header class="clearfix">
-                      <img src="public/img/avatar.png" alt="A Smart Guy" class="avatar">
+                      <img src="@{'public/img/avatar.png'}" alt="A Smart Guy" class="avatar">
                       <div class="meta">
                         <h3>
                           <a href="#">جینکس کول</a>
@@ -229,7 +162,7 @@
 
                   <article class="comment reply">
                     <header class="clearfix">
-                      <img src="public/img/avatar.png" alt="A Smart Guy" class="avatar">
+                      <img src="@{'public/img/avatar.png'}" alt="A Smart Guy" class="avatar">
                       <div class="meta">
                         <h3>
                           <a href="#">بی‌شعور</a>
@@ -243,7 +176,7 @@
 
                   <article class="comment ">
                     <header class="clearfix">
-                      <img src="public/img/avatar.png" alt="A Smart Guy" class="avatar">
+                      <img src="@{'public/img/avatar.png'}" alt="A Smart Guy" class="avatar">
                       <div class="meta">
                         <h3>
                           <a href="#">جینکس کول</a>
@@ -350,23 +283,3 @@
 
         </div>
       </div>
-    </div>
-  </div>
-  <!-- Bootstrap core JavaScript
-    ================================================== -->
-  <!-- Placed at the end of the document so the pages load faster -->
-  <script src="public/js/jquery.min.js"></script>
-  <script src="public/js/bootstrap.min.js"></script>
-
-  <script>
-			$(".cssControls>button").on('click', function() {
-				cssTarget = 'public/css/' + $(this).data('cssfile');
-				$('#bgstyle').attr('href', cssTarget);
-			});
-		</script>
-
-
-
-</body>
-
-</html>
