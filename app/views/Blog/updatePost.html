@@ -1,0 +1,76 @@
+#{extends 'main.html' /}
+#{set 'title'} &{'blog.newPost.title'} #{/set}
+
+<h1 class="page-header">ویرایش پست
+  <span class="pull-left">
+    <a href="@{deletePost(post.id)}" class="btn btn-danger confirm-target">حذف</a>
+  </span>
+</h1>
+<div class="page-container new-post">
+    #{form @updatePost(post.id), method:'POST', enctype:'multipart/form-data'}
+        <fieldset>
+            <div class="form-group">
+                <label for="post_title">&{'post.title'}</label>
+                <input type="text" class="form-control" id="post_title" name="post.title" placeholder="&{'post.title'}" value="${post?.title}">
+            </div>
+            <div class="form-group">
+                <label for="post_icon">&{'post.icon'}</label>
+                <input class="form-control" type="file" name="post.icon" value="${post?.icon}">
+            </div>
+            <div class="form-group">
+                <label for="post_teaserIcon">&{'post.teaserIcon'}</label>
+                <input class="form-control" id="post_teaserIcon" type="file" name="post.teaserIcon" >
+            </div>
+            <div class="form-group">
+                <label for="post_content">&{'post.content'}</label>
+                <textarea class="form-control summernote" name="post.content">${post?.content}</textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">&{'blog.save'}</button>
+        </fieldset>
+    #{/form}
+
+</div>
+
+
+#{set 'moreStyles'}
+    <link rel="stylesheet" href="@{'public/css/font-awesome.min.css'}">
+    <link rel="stylesheet" href="@{'public/css/summernote.css'}">
+#{/set}
+
+#{set 'moreScripts'}
+  <script src="@{'/public/js/summernote.min.js'}" type="text/javascript" charset="UTF-8"></script>
+  <script type="text/javascript">
+  $(document).ready(function() {
+    $('.summernote').summernote({
+  	toolbar: [
+  	          ['style', ['style']],
+  	          ['font', ['bold', 'italic', 'underline', 'clear']],
+  	          ['fontsize', ['fontsize']],
+  	          ['insert', ['link', 'picture', 'video']]
+  	],
+      height: 300,
+      tabsize: 2,
+      direction: 'rtl',
+      onImageUpload: function(files, editor, welEditable) {
+          sendFile(files[0],editor,welEditable);
+      }
+    });
+  });
+  
+  function sendFile(file,editor,welEditable) {
+      data = new FormData();
+      data.append("file", file);
+      $.ajax({
+          data: data,
+          type: "POST",
+          url: "@{Blog.uploadEditorImage()}",
+          cache: false,
+          contentType: false,
+          processData: false,
+          success: function(url) {
+              editor.insertImage(welEditable, url);
+          }
+      });
+  }
+  </script>
+#{/set}

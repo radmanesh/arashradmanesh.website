@@ -1,0 +1,40 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+
+<h1 class="page-header">بلاگ
+  <span class="pull-left">
+    <a class="btn btn-primary" href="@{newPost()}">پست جدید</a>
+  </span>
+</h1>
+<div class="page-container">
+  <div class="row">
+    #{list posts}
+      <div class="col-6 col-md-6 col-sm-6">
+        <article class="blog-teaser">
+          <header>
+            <img class="post-teaser-icon" src="@{getPostIcon(_.id)}" alt="Post icon">
+            <h3>
+              <a href="@{showBlogPost(_.id)}">${_?.title}</a>
+            </h3>
+            <span class="meta">
+            نوشته‌شده توسط 
+            ${_.author}
+            ، 
+            ${utils.JalaliDateConverter.formattedPersian(_.publishedAt)}
+            </span>
+            <hr>
+          </header>
+          <div class="body">
+            ${_.content.raw()}
+          </div>
+          <div class="clearfix">
+            <a href="@{showBlogPost(_.id)}" class="btn btn-tales-one">ادامهٔ مطلب</a>
+          </div>
+        </article>
+      </div>
+    #{/list}
+  </div>
+
+  <p style="min-height: 800px"></p>
+
+</div>

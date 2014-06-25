@@ -1,0 +1,9 @@
+# Default Account
+
+models.Account(admin):
+    email:              admin@local
+    passwordHash:       4233137d1c510f2e55ba5cb220b864b11033f156    # hello123 (SHA1)
+    fullname:           Administrator (Super User)
+    role:               SUPERUSER
+    confirmed:          true
+    configs:            null

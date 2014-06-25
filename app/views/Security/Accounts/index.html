@@ -1,0 +1,98 @@
+#{extends 'layout.html' /}
+#{set 'title'} &{'accounts.AccountsPageTitle'} #{/set}
+
+#{set 'moreStyles'}
+#{/set}
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="page-header">
+      <h2>
+        &{'accounts.AccountsTitle'}
+	    <div class="pull-left">
+	      <a class="btn btn-default btn-xs" href="#" title="&{'accounts.NewAccount'}" data-toggle="modal" data-target="#newAccountModal">&{'accounts.NewAccount'}</a>   
+        <!-- For debug (commented out!) -->
+	      *{<a href="@{Accounts.deleteAll}" class="btn btn-danger btn-xs">&{'onto.flight.AccountsResetAll'}</a>}*
+        </div> <!-- /.pull-left -->
+      </h2> 
+    </div> <!-- /.page-header -->
+
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <table class="table table-hover">
+          <thead>
+            <th>&{'accounts.FullName'}</th>
+            <th>&{'accounts.Email'}</th>
+            <th>&{'accounts.AccountsRole'}</th>
+            <th></th>
+          </thead>
+          <tbody>
+            #{list accounts}
+            #{ifnot _.deleted}
+            <tr>
+              <td style="white-space: nowrap;width:1%;">
+                #{ifnot _.confirmed}
+                  <i class="fa fa-exclamation-circle text-danger" title="&{'accounts.AccountIsNotConfirmed'}"></i>
+                #{/ifnot}
+                ${_.fullname}
+              </td>
+              <td style="white-space:nowrap;width:1%;"><code>${_.email}</code></td>
+              <td style="white-space:nowrap;width:1%">&{"onto.auth."+_.role}</td>
+              <td class="text-left">
+                #{ifnot _.confirmed}
+                  <a href="@{security.Accounts.confirm(_.id)}" class="btn btn-xs btn-default" title="تایید کاربر جدید"><i class="fa fa-check"></i></a>
+                #{/ifnot}
+                <a href="@{security.Accounts.edit(_.id)}" class="btn btn-xs btn-grayscale" title=""><i class="fa fa-pencil" title="تغییر اطلاعات کاربر"></i></a>
+                #{if _.role.ordinal() < models.AccountRole.ADMINISTRATOR.ordinal()}
+                <a href="@{security.Accounts.delete(_.id)}" class="btn btn-xs btn-danger" title="حذف کاربر"><i class="fa fa-times"></i></a>
+                #{/if}
+              </td>
+            </tr>
+            #{/ifnot}
+            #{/list}
+          </tbody>
+        </table>
+      </div> <!-- /.panel-body -->
+    </div> <!-- /.panel -->
+  </div> <!-- /.col-md-12 -->
+</div> <!-- /.row -->
+
+<div class="modal fade" id="newAccountModal" tabindex="-1" role="dialog" aria-labelledby="newAccountModalLabel" aria-hidden="true">
+<form method="POST" action="@{security.Accounts.register}" id="new-card-form">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="newCardModalLabel">ثبت‌نام کاربر جدید</h4>
+      </div>
+      <div class="modal-body">
+
+        <!-- Full Name -->
+        <div class="row" style="padding-bottom:5px;">
+          <div class="col-md-12">
+            <input id="fullname" name="fullname" type="text" class="form-control" placeholder="نام و نام‌خانوادگی"/>
+          </div>
+        </div> <!-- /.form-group -->
+
+        <!-- Email & password (cont.) -->
+        <div class="row" style="padding-bottom:5px;">
+          <div class="col-md-6">
+            <input id="email" name="email" type="email" class="form-control ltr" placeholder="پست الکترونیکی"/>
+          </div>
+          <div class="col-md-6">
+            <input id="password" name="password" type="password" class="form-control ltr" placeholder="کلمه‌ی عبور"/>
+          </div>
+        </div> <!-- /.form-group -->
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">لغو</button>
+        <button type="submit" class="btn btn-primary btn-grayscale" id="submit-btn">ثبت‌نام</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</form>
+</div><!-- /.modal -->
+
+#{set 'moreScripts'}
+#{/set}

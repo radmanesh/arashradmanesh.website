@@ -1,0 +1,15 @@
+# You can specialize this file for each language.
+# For example, for French create a messages.fr file
+#
+
+security.LoginPageTitle=ورود به سامانه
+security.LoginLegend=ورود به سامانه
+security.Username=نام کاربری (ایمیل)
+security.Password=کلمه‌ی عبور
+security.SignIn=ورود
+security.LoginError=نام کاربری یا کلمه‌ی عبور اشتباه است.
+security.SignedOut=شما با موفقیت از سامانه خارج شدید.
+security.RememberMe=به خاطر نگه داشته باش.
+
+security.Cancel=لغو
+security.Save=ذخیره

@@ -1,0 +1,22 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+
+<div class="container-fluid">
+  #{form @newTemplate(), method:'POST', enctype:'multipart/form-data'}
+    <select name="icon.type">
+      <option value="teaser">teaser icon</option>
+      <option value="header">header icon</option>
+    </select>
+    <input type="file" name="icon.graphic" >
+    <input type="submit" class="btn btn-primaty"> 
+  #{/form}
+  <hr />
+  #{list headers}
+    <img class="img-thumbnail gallery-header-icon" src="@{Blog.renderGraphicTemplate(_.id)}">
+    <a href="@{Application.removeTemplate(_.id)}" class="text-danger"><span class="glyphicon glyphicon-remove"></span></a>
+  #{/list}
+  #{list teasers}
+    <img class="img-circle gallery-teaser-icon" src="@{Blog.renderGraphicTemplate(_.id)}">
+    <a href="@{Application.removeTemplate(_.id)}" class="text-danger"><span class="glyphicon glyphicon-remove"></span></a>
+  #{/list}
+</div>

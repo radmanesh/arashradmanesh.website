@@ -13,7 +13,11 @@ public class Comment extends Model {
 	
 	public Date publishedAt;
 	
-	public String author;
+	public String name;
+	
+	public String email;
+	
+	public String website;
 	
 	@ManyToOne
 	public Post parent;
@@ -23,5 +27,7 @@ public class Comment extends Model {
 		if(p!=null)
 			this.parent = p;
 		else throw new NullPointerException("Post with the given id was not found!") ;
+		
+		publishedAt = new Date();
 	}
 }

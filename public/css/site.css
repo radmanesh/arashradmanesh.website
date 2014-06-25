@@ -99,6 +99,7 @@ div.blog-post-area{
   margin: 10px;
   padding: 10px;
   background-color: rgba(209, 209, 209, 0.4);
+  border-radius: 10px;
 }
 
 .blog-teaser .body{
@@ -107,6 +108,12 @@ div.blog-post-area{
   padding-right: 25px;
   text-align: justify;
 }
+
+img.post-teaser-icon{
+  max-width: 183px;
+  
+}
+
 .blog-teaser .btn {
   float: left;
   margin-right: 0px;
@@ -120,50 +127,97 @@ div.blog-post-area{
 article.blog-post , aside.social-icons , aside.comments , .create-comment{
   margin: 10px;
   padding: 10px 30px 10px 30px;
+  border-radius: 10px;
 }
 
 article.blog-post{
   background-color: rgba(209, 209, 209, 0.7);
 }
+.blog-post header .lead-image .meta {
+  background-color: rgba(128, 128, 128, 0.85);
+}
+.blog-post h1{
+  vertical-align: middle;
+}
+
 .blog-post p{
   text-align: justify;
   word-break: hyphenate;
 }
 .blog-post .body{
   padding-right: 0px;
+  padding-left: 30px;
+  margin-bottom: 30px;
 }
 
 /**
-  articles style
+* Social icons
 */
 aside.social-icons{
   background-color: rgba(70,70,70,0.4);
 }
 .social-icon:first-child {
-  margin-left: 70px;
+ margin-right: 0px;
 }
-.social-icon:last-child {
+.social-icon{
+  margin-bottom: 20px;
+  margin-top: 20px;
   margin-left: 0px;
+  margin-right: 70px;
+}
+.social-icon.color-one {
+  background-color: #363636;
+}
+.social-icon.color-one .inner-circle {
+  background-color: #525252;
+}
+.social-icon.color-two {
+  background-color: #cccccc;
+}
+.social-icon.color-two .inner-circle {
+  background-color: #444444;
+}
+.social-icon.color-three {
+  background-color: #363636;
+}
+.social-icon.color-three .inner-circle {
+  background-color: #525252;
+}
+
+/**
+  articles style
+*/
+article.comment{
+  background-color: rgba(86, 86, 86, 0.4);
+}
+article.comment.reply{
+  background-color: rgba(61, 61, 61, 0.6);
 }
 
 aside.comments{
   background-color: rgba(220,220,220,0.7);
+  padding-bottom: 30px;
 }
 aside.comments .comment{
-  margin: 100px 0 0 0;
+  margin: 30px 0 0 0;
   padding: 10px;
 }
-article.comment{
-  background-color: rgba(86, 86, 86, 0.4);
+aside.comments hr, aside.create-comment hr{
+  margin-bottom: 50px;
 }
-
-article.comment.reply{
-  background-color: rgba(61, 61, 61, 0.6);
+aside.comments h2, aside.create-comment h2{
+  margin-bottom: 50px;
 }
 
 aside.create-comment{
   margin-bottom: 10px;
   background-color: rgba(220,220,220,0.5);
+}
+aside.comments .comment.reply {
+  margin-right: 100px;
+}
+aside.comments .comment header img {
+  float: right;
 }
 
 /* .blog-main:before {
@@ -181,9 +235,27 @@ aside.create-comment{
 aside.blog-aside{
   background-color: rgba(209, 209, 209, 0.4);
 } 
-aside.comments .comment.reply {
-  margin-right: 100px;
+
+
+/**
+* Blog - new Post
+*/
+div.new-post{
+  background-color: rgba(238,238,238,0.7);
+  padding : 10px;
+  border-radius: 10px;
 }
-aside.comments .comment header img {
-  float: right;
+.gallery-header-icon{
+  max-height: 150px;
+  margin-bottom: 5px;
+}
+.gallery-teaser-icon{
+  max-width: 150px;
+  max-height: 150px;
+  margin-bottom: 5px;
+}
+
+
+textarea.summernote{
+  background-color: white;
 }

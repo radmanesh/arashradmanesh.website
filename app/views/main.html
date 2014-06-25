@@ -64,7 +64,9 @@
   
       </div>
 
-      #{doLayout /}
+      <div class="col-sm-9 col-sm-offset-3">
+        #{doLayout /}
+      </div>
       
     </div>
   </div>
@@ -74,10 +76,54 @@
   <script src="@{'public/js/jquery.min.js'}"></script>
   <script src="@{'public/js/bootstrap.min.js'}"></script>
   <script>
-    $(".cssControls>button").on('click', function() {
-      cssTarget = 'public/css/' + $(this).data('cssfile');
-      $('#bgstyle').attr('href', cssTarget);
-    });
+  var moving = false;
+  var moved = false;
+
+  $(document).ready(function(){
+	  $('.sidebar').mousemove(function( event ){
+		  if(!moving){
+  		  scale = event.clientY-60-($(this).height()/2);
+  		  console.log(scale);
+  		  scale = scale / ($(this).height()/2) * 40 ;
+  		  console.log(event.pageY , $(window).height() , scale);
+  		  if(Math.abs(scale)>30){
+    		  if(scale<0)
+      		  var shift = "+=" + Math.abs(scale);
+    		  else
+    			  var shift = "-=" + Math.abs(scale);
+
+    		  moving = true;
+          moved = true;
+          $(this).animate({
+            top: shift
+          }, 500, function() {
+            moving = false;
+          });
+  			  
+  			  
+  		  }
+			  
+		  }
+	  });
+	  
+	  $('.sidebar').mouseleave(function(){
+		  if(moved){
+			  moving = true;
+  		  $(this).animate({
+            top: "0"
+          }, 1000, function() {
+            moving = false;
+            moved = false;
+          });
+		  }
+		  
+	  });
+	  
+  });
+  $(".cssControls>button").on('click', function() {
+    cssTarget = 'public/css/' + $(this).data('cssfile');
+    $('#bgstyle').attr('href', cssTarget);
+  });
   </script>
   
   #{get 'moreScripts' /}

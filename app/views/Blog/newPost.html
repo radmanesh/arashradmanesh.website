@@ -1,0 +1,91 @@
+#{extends 'main.html' /}
+#{set 'title'} &{'blog.newPost.title'} #{/set}
+
+<h1 class="page-header">پست جدید</h1>
+<div class="page-container new-post">
+    #{form @newPost(), method:'POST', enctype:'multipart/form-data'}
+        <fieldset>
+            <div class="form-group">
+                <label for="post_title">&{'post.title'}</label>
+                <input type="text" class="form-control" id="post_title" name="post.title" placeholder="&{'post.title'}">
+            </div>
+
+            <div class="fileinput fileinput-new" data-provides="fileinput">
+              <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
+              <div>
+                <span class="btn btn-default btn-file"><span class="fileinput-new">Header icon</span><span
+                  class="fileinput-exists">Change</span><input type="file" name="post.icon"></span> <a href="#"
+                  class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+              </div>
+            </div>
+
+            <div class="form-group">
+              #{list teasers}
+                <img class="img-circle gallery-teaser-icon" src="@{renderGraphicTemplate(_.id)}" data-id="${_.id}" >
+              #{/list}
+            </div>
+
+            <div class="form-group">
+                <label for="post_content">&{'post.content'}</label>
+                <textarea class="form-control summernote" name="post.content">${post?.content}</textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">&{'blog.save'}</button>
+        </fieldset>
+    #{/form}
+
+</div>
+
+
+#{set 'moreStyles'}
+    <link rel="stylesheet" href="@{'public/css/font-awesome.min.css'}">
+    <link rel="stylesheet" href="@{'public/css/summernote.css'}">
+    <link rel="stylesheet" href="@{'public/css/jasny-bootstrap.min.css'}">
+#{/set}
+
+#{set 'moreScripts'}
+    <script src="@{'/public/js/summernote.min.js'}" type="text/javascript" charset="UTF-8"></script>
+    <script src="@{'/public/js/jasny-bootstrap.min.js'}" type="text/javascript" charset="UTF-8"></script>
+
+    <script type="text/javascript">
+    $(document).ready(function() {
+    	$('.gallery-teaser-icon').on('click',function(){
+    		
+    	});
+    }
+    </script>
+    
+    <script type="text/javascript">
+    $(document).ready(function() {
+      $('.summernote').summernote({
+    	toolbar: [
+    	          ['style', ['style']],
+    	          ['font', ['bold', 'italic', 'underline', 'clear']],
+    	          ['fontsize', ['fontsize']],
+    	          ['insert', ['link', 'picture', 'video']]
+    	],
+        height: 300,
+        tabsize: 2,
+        direction: 'rtl',
+        onImageUpload: function(files, editor, welEditable) {
+            sendFile(files[0],editor,welEditable);
+        }
+      });
+    });
+    
+    function sendFile(file,editor,welEditable) {
+        data = new FormData();
+        data.append("file", file);
+        $.ajax({
+            data: data,
+            type: "POST",
+            url: "@{Blog.uploadEditorImage()}",
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(url) {
+                editor.insertImage(welEditable, url);
+            }
+        });
+    }
+    </script>
+#{/set}
