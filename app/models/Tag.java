@@ -1,10 +1,12 @@
 package models;
  
-import java.util.*;
-import javax.persistence.*;
- 
-import play.db.jpa.*;
-import play.data.validation.*;
+import java.util.List;
+import java.util.Map;
+
+import javax.persistence.Entity;
+
+import play.data.validation.Required;
+import play.db.jpa.Model;
  
 @Entity
 public class Tag extends Model implements Comparable<Tag> {

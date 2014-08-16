@@ -259,3 +259,19 @@ div.new-post{
 textarea.summernote{
   background-color: white;
 }
+
+/**
+* Publication
+*/
+div.publication-container{
+  background-color: rgba(209, 209, 209, 0.4);
+  min-height: 80px;
+}
+img.pub-icon{
+  max-width: 80px;
+  margin-left: 20px;
+}
+a.pub-buy{
+  left : 10px;
+  bottom: 10px;
+}

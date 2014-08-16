@@ -18,6 +18,8 @@
   <link id="bgstyle" href="@{'public/css/wood1.css'}" rel="stylesheet">
   
   <link rel="shortcut icon" type="image/png" href="@{'public/img/favicon.png'}">
+  
+  <script src="@{'public/js/jquery.min.js'}"></script>
 
 </head>
 <body>
@@ -32,7 +34,7 @@
       </div>
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-left">
-          <li><a href="#">بلاگ</a></li>
+          <li><a href="@{Blog.index()}">بلاگ</a></li>
           <li><a href="#">کتابخانه</a></li>
           <li><a href="#">متفرقه</a></li>
           <li><a href="#">درباره</a></li>
@@ -73,7 +75,6 @@
   
   <!-- Bootstrap core JavaScript -->
   <!-- Placed at the end of the document so the pages load faster -->
-  <script src="@{'public/js/jquery.min.js'}"></script>
   <script src="@{'public/js/bootstrap.min.js'}"></script>
   <script>
   var moving = false;

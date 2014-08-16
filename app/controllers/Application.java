@@ -1,11 +1,9 @@
 package controllers;
 
-import play.*;
-import play.mvc.*;
+import java.util.List;
 
-import java.util.*;
-
-import models.*;
+import models.GraphicTemplate;
+import play.mvc.Controller;
 
 public class Application extends Controller {
 
@@ -25,6 +23,7 @@ public class Application extends Controller {
     }
     
     public static void newTemplate(){
+    	System.out.println(params.allSimple());
     	GraphicTemplate gt = new GraphicTemplate("teaser");
     	gt.edit(params.getRootParamNode(), "icon");
     	gt.save();

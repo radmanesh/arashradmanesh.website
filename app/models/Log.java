@@ -1,12 +1,3 @@
-/*******************************************************************************
- *        File: Log.java
- *    Revision: 2
- * Description: Store all kinds of logs and activities.
- *      Author: Morteza Ansarinia <ansarinia@me.com>
- *  Created on: Oct 9, 2014
- *     Project: onto.ads
- *   Copyright: See the file "LICENSE.md" for the full license governing this code.
- *******************************************************************************/
 package models;
 
 import java.util.Date;

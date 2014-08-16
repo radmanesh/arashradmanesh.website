@@ -10,7 +10,8 @@ import models.Post;
 import play.i18n.Messages;
 import play.libs.Codec;
 import play.libs.Files;
-import play.mvc.*;
+import play.mvc.Controller;
+import play.mvc.Router;
 import play.vfs.VirtualFile;
 
 public class Blog extends Controller {
@@ -36,16 +37,21 @@ public class Blog extends Controller {
         }
         post.publishedAt = new Date();
         post.modifiedAt = new Date();
-        if(post.icon.length()>0){
-        	GraphicTemplate gt = new GraphicTemplate("header");
-        	gt.graphic = post.icon;
-        	gt.save();
+        
+        String teaserId = params.get("teaser-icon-id");
+        System.out.println(teaserId);
+        GraphicTemplate gt = GraphicTemplate.findById(Long.valueOf(teaserId));
+        if(gt!=null || gt.graphic.exists()){
+        	post.teaserIcon = gt.graphic;
         }
-        if(post.teaserIcon.length()>0){
-        	GraphicTemplate gt = new GraphicTemplate("teaser");
-        	gt.graphic = post.teaserIcon;
-        	gt.save();
+
+        String headerId = params.get("header-icon-id");
+        System.out.println(headerId);
+        gt = GraphicTemplate.findById(Long.valueOf(headerId));
+        if(gt!=null || gt.graphic.exists()){
+        	post.icon = gt.graphic;
         }
+
         
         post.save();
 
@@ -94,6 +100,7 @@ public class Blog extends Controller {
     
     public static void showBlogPost(Long id){
     	Post post = Post.findById(id);
+    	System.out.println(post.teaserIcon.getFile().getAbsolutePath());
     	if(post==null)
     		notFound();
     	
@@ -112,6 +119,20 @@ public class Blog extends Controller {
     	renderBinary(binaryData);
     }
 
+    
+    public static void getPostTeaserIcon(Long id){
+    	final Post post = Post.findById(id);
+    	if(post==null)
+    		notFound();
+    	if(!post.teaserIcon.exists())
+    		renderBinary(new File("public/img/hands.png"));
+    	
+    	response.setContentTypeIfNotSet(post.teaserIcon.type());
+    	java.io.InputStream binaryData = post.teaserIcon.get();
+    	renderBinary(binaryData);
+    }
+
+    
     public static void uploadEditorImage(File file){
         String name = file.getName();
         String ext = name.substring(name.lastIndexOf("."));
