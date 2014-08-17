@@ -16,7 +16,7 @@ import play.db.jpa.Model;
 import play.libs.Codec;
 
 @Entity
-@Table(schema = "public", name = "account")
+@Table(name = "account")
 public class Account extends Model {
 
   @Email

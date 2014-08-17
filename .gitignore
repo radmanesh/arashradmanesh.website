@@ -5,3 +5,5 @@ db
 test
 tmp
 public/upload/images
+eclipse
+.settings

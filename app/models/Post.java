@@ -29,7 +29,7 @@ public class Post extends Model {
 
 	public Date modifiedAt;
 
-	public String author = "آرش رادمنش";
+	public String author;
 
 	@OneToMany(mappedBy = "parent")
 	public List<Comment> comments;
@@ -40,6 +40,7 @@ public class Post extends Model {
 	public Post() {
 		publishedAt = new Date();
 		modifiedAt = new Date();
+		author = "آرش رادمنش";
 	}
 
 	public Post tagItWith(String name) {
