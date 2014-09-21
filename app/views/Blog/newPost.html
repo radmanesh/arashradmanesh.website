@@ -1,13 +1,13 @@
 #{extends 'main.html' /}
 #{set 'title'} &{'blog.newPost.title'} #{/set}
 
-<!-- gallery modal -->
-<div class="modal fade" id="gallery-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!-- gallery-teaser-modal -->
+<div class="modal fade" id="gallery-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">gallery</h4>
+        <h4 class="modal-title" id="modalLabel">gallery</h4>
       </div>
       <div class="modal-body">
         #{list teasers}
@@ -48,6 +48,26 @@
 
     </div>
   </div>
+</div>
+<!--./end of modal -->
+
+<!-- new gallery icon -->
+<div class="modal fade" id="new-gallery-icon" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">gallery</h4>
+      </div>
+      <div class="modal-body">
+      </div>
+    </div>
+    
+  </div>
+</div>
+<!--./end of modal -->
+
+
   
   <script>
   $('a.header-icon-select').on('click',function(){
@@ -71,6 +91,7 @@
               <input id="teaser-icon-input" type="hidden" name="teaser-icon-id">
               <div id="teaser-icon-container">
                 <a data-toggle="modal" data-target="#gallery-modal"><img class="img-circle" src="@{'public/img/blog-teaser.png'}" ></a>
+                
               </div>
             </div>
 

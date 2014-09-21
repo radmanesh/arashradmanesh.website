@@ -13,3 +13,34 @@ security.RememberMe=به خاطر نگه داشته باش.
 
 security.Cancel=لغو
 security.Save=ذخیره
+
+
+ratnic.framework.SettingsTitle=تنظیمات
+ratnic.framework.SettingsPageTitle=تنظیمات
+ratnic.framework.SaveSettings=ذخیره
+ratnic.framework.AdvancedSettings=پیشرفته
+ratnic.framework.DefaultLanguage=زبان پیش‌فرض
+ratnic.framework.Farsi=فارسی
+ratnic.framework.English=English
+
+ratnic.framework.LoginPageTitle=ورود به سامانه
+ratnic.framework.LoginLegend=ورود به سامانه
+ratnic.framework.Username=نام کاربری (ایمیل)
+ratnic.framework.Password=کلمه‌ی عبور
+ratnic.framework.SignIn=ورود
+ratnic.framework.LoginError=نام کاربری یا کلمه‌ی عبور اشتباه است.
+ratnic.framework.SignedOut=شما با موفقیت از سامانه خارج شدید.
+ratnic.framework.RememberMe=به خاطر نگه داشته باش.
+ratnic.framework.Note=یادداشت
+
+ratnic.framework.Cancel=لغو
+ratnic.framework.Save=ذخیره
+ratnic.framework.Show=نمایش
+
+
+ratnic.ecommerce.GatewaySettings=درگاه پرداخت
+ratnic.ecommerce.Gateway=درگاه پرداخت
+ratnic.ecommerce.ZarinPal=زرین‌پال
+ratnic.ecommerce.Shetab=شتاب (شاپرک)
+ratnic.ecommerce.ZarinPalUniqueKey=کلید یکتا
+ratnic.ecommerce.PaymentDescription=توضیحات پرداخت

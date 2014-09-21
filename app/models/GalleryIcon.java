@@ -6,13 +6,13 @@ import play.db.jpa.Blob;
 import play.db.jpa.Model;
 
 @Entity
-public class GraphicTemplate extends Model {
+public class GalleryIcon extends Model {
 	
 	public String type;
 	
 	public Blob graphic;
 	
-	public GraphicTemplate(String type){
+	public GalleryIcon(String type){
 		this.type=type;
 	}
     
