@@ -50,7 +50,7 @@ ol {
 blockquote {
   padding: 10px 20px;
   margin: 0 0 30px;
-  border-left: 5px solid #eee;
+  border-right: 5px solid #eee;
 }
 h1,
 h2,
@@ -190,7 +190,7 @@ a:hover {
 .navbar.stick {
   position: fixed;
   top: 0;
-  left: 0;
+  right: 0;
   opacity: .85;
 }
 .navbar-collapse {
@@ -218,7 +218,7 @@ a:hover {
 }
 .dropdown ul.dropdown-menu {
   top: 85%;
-  text-align: left;
+  text-align: right;
 }
 .dropdown ul.dropdown-menu > li > a {
   padding: 5px 30px;
@@ -456,7 +456,7 @@ img {
 .thumbnail .cover .more {
   position: absolute;
   bottom: 15px;
-  right: 0;
+  left: 0;
   height: 32px;
   line-height: 32px;
   padding: 0 20px;
@@ -477,7 +477,7 @@ img {
   width: 100%;
   position: absolute;
   top: 0;
-  left: 0;
+  right: 0;
 }
 .thumbnail:hover {
   color: #333;
@@ -552,13 +552,13 @@ img {
 }
 .section-title span:before,
 .entry-title span:before {
-  right: 100%;
-  margin-right: 45px;
+  left: 100%;
+  margin-left: 45px;
 }
 .section-title span:after,
 .entry-title span:after {
-  left: 100%;
-  margin-left: 45px;
+  right: 100%;
+  margin-right: 45px;
 }
 .entry-header .entry-meta {
   text-align: center;
@@ -599,7 +599,7 @@ img {
 .more-link {
   display: block;
   width: 100%;
-  text-align: right;
+  text-align: left;
 }
 /* Posts navigation */
 #nav-below {
@@ -629,11 +629,11 @@ img {
 }
 #nav-below .nav-next {
   position: fixed;
-  right: -3px;
+  left: -3px;
 }
 #nav-below .nav-previous {
   position: fixed;
-  left: -3px;
+  right: -3px;
 }
 #nav-below b {
   display: none;
@@ -656,10 +656,10 @@ footer.entry-meta .meta-in {
   padding: 10px 0;
 }
 .page-header {
-  padding-bottom: 0;
+  padding-bottom: 10px;
   margin: 0;
   border-bottom: none;
-  text-align: left;
+  text-align: right;
 }
 .page-header .page-title {
   margin-top: 0;
@@ -699,7 +699,7 @@ footer.entry-meta .meta-in {
   margin-bottom: 0;
 }
 #comments .avatar {
-  float: left;
+  float: right;
   width: 70px;
   height: 70px;
   margin-bottom: 30px;
@@ -734,7 +734,7 @@ footer.entry-meta .meta-in {
   color: #666666;
 }
 #comments .comment-meta .reply {
-  float: right;
+  float: left;
 }
 #comments .comment-body {
   margin: 0 0 35px 90px;
@@ -750,13 +750,13 @@ footer.entry-meta .meta-in {
   padding: 10px 0 0 0;
 }
 .comment-navigation .nav-previous {
-  float: left;
+  float: right;
   width: 50%;
 }
 .comment-navigation .nav-next {
-  float: right;
+  float: left;
   width: 50%;
-  text-align: right;
+  text-align: left;
 }
 #respond {
   margin: 55px 0 0 0;
@@ -806,7 +806,7 @@ footer.entry-meta .meta-in {
   font-size: 30px;
 }
 .follow-me-icons i {
-  float: left;
+  float: right;
   margin: 0 10px 0 0;
 }
 /* Max page width

@@ -1,0 +1,114 @@
+#{extends './../main2.html' /}
+#{set 'title'} &{'blog.newPost.title'} #{/set}
+
+<div class="page-header">
+  <h1 class="page-title">پست جدید</h1>
+</div>
+
+<div class="page-container new-post">
+    #{form @newPost(), method:'POST', enctype:'multipart/form-data'}
+        <fieldset>
+
+            <div class="form-group">
+                <label for="post_title">&{'post.title'}</label>
+                <input type="text" class="form-control" id="post_title" name="post.title" placeholder="&{'post.title'}">
+            </div>
+
+            <div class="form-group" style="text-align:center;">
+              <label for="header-icon-container">تصویر پست</label>
+              <input id="header-icon-input" type="hidden" name="header-icon-id">
+              <div id="header-icon-container">
+                <a data-toggle="modal" data-target="#gallery-modal-header"><img class="img-thumbnail" src="@{'public/img/blog-header.png'}" ></a>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="post-tags">برچسب‌ها</label>
+              <input id="post-tags" disabled>
+            </div>
+
+
+            <div class="form-group">
+                <label for="post_content">&{'post.content'}</label>
+                <textarea class="form-control summernote" name="post.content">${post?.content}</textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">&{'blog.save'}</button>
+        </fieldset>
+    #{/form}
+
+</div>
+
+<!-- gallery modal -->
+<div class="modal fade" id="gallery-modal-header" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">gallery</h4>
+      </div>
+      <div class="modal-body">
+        #{list headers}
+          <a class="header-icon-select" href="#" data-id="${_.id}" >
+            <img class="img-thumbnail gallery-header-icon" src="@{renderGraphicTemplate(_.id)}">
+          </a>
+        #{/list}
+      </div>
+
+    </div>
+  </div>
+</div>
+<!--./end of modal -->
+
+
+#{set 'moreStyles'}
+    <link rel="stylesheet" href="@{'public/css/font-awesome.min.css'}">
+    <link rel="stylesheet" href="@{'public/css/summernote.css'}">
+    <link rel="stylesheet" href="@{'public/css/jasny-bootstrap.min.css'}">
+#{/set}
+
+#{set 'moreScripts'}
+    <script src="@{'/public/js/summernote.min.js'}" type="text/javascript" charset="UTF-8"></script>
+    <script src="@{'/public/js/jasny-bootstrap.min.js'}" type="text/javascript" charset="UTF-8"></script>
+    
+    <script type="text/javascript">
+    $(document).ready(function() {
+      $('.summernote').summernote({
+    	toolbar: [
+    	          ['style', ['style']],
+    	          ['font', ['bold', 'italic', 'underline', 'clear']],
+    	          ['fontsize', ['fontsize']],
+    	          ['insert', ['link', 'picture', 'video']]
+    	],
+        height: 300,
+        tabsize: 2,
+        direction: 'rtl',
+        onImageUpload: function(files, editor, welEditable) {
+            sendFile(files[0],editor,welEditable);
+        }
+      });
+    });
+    
+    function sendFile(file,editor,welEditable) {
+        data = new FormData();
+        data.append("file", file);
+        $.ajax({
+            data: data,
+            type: "POST",
+            url: "@{Blog.uploadEditorImage()}",
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(url) {
+                editor.insertImage(welEditable, url);
+            }
+        });
+    }
+    </script>
+  <script>
+  $('a.header-icon-select').on('click',function(){
+    $('#header-icon-input').attr('value',$(this).data('id'));
+    $('#header-icon-container img').attr('src',$(this).children('img').attr('src'));
+    $('#gallery-modal-header').modal('hide');
+  });
+  </script>
+#{/set}

@@ -1,5 +1,5 @@
-#{extends 'main2.html' /}
-#{set title:'Blog' /}
+#{extends './../main2.html' /}
+#{set title:'Home' /}
 
 <div class="row topspace">
   <div class="col-sm-8 col-sm-offset-2">
@@ -28,7 +28,6 @@
           <img src="@{Blog.getPostIcon(_.id)}" alt="Post icon"></img>
         </p>
         ${_.content.raw()}
-        <a href="@{showBlogPost(_.id)}" class="more-link">ادامهٔ مطلب&#8230;</a>
       </div>
     </article>    
   #{/list}

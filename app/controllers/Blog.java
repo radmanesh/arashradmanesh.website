@@ -19,13 +19,7 @@ public class Blog extends Controller {
 
     public static void index() {
         List<Post> posts = Post.all().fetch();
-        String template = Configuration.get("arashradmanesh.template", "template1");
-        if (template.equalsIgnoreCase("Template1"))
-            renderTemplate("Blog/Template1/index.html");
-        else if (template.equalsIgnoreCase("Template2"))
-            renderTemplate("Blog/Template2/index.html");
-        else
-            render(posts);
+        render(posts);
     }
 
     public static void newPost(Post post) {
@@ -44,19 +38,27 @@ public class Blog extends Controller {
         }
         post.publishedAt = new Date();
         post.modifiedAt = new Date();
-
-        String teaserId = params.get("teaser-icon-id");
-        System.out.println(teaserId);
-        GalleryIcon gt = GalleryIcon.findById(Long.valueOf(teaserId));
-        if (gt != null || gt.graphic.exists()) {
-            post.teaserIcon = gt.graphic;
+        
+        if(params._contains("teaser-icon-id")){
+            try {
+                Long teaserId = Long.valueOf(params.get("teaser-icon-id"));
+                GalleryIcon gt = GalleryIcon.findById(Long.valueOf(teaserId));
+                if (gt != null && gt.graphic.exists()) {
+                    post.teaserIcon = gt.graphic;
+                }                
+            } catch (Exception e) {
+            }
         }
-
-        String headerId = params.get("header-icon-id");
-        System.out.println(headerId);
-        gt = GalleryIcon.findById(Long.valueOf(headerId));
-        if (gt != null || gt.graphic.exists()) {
-            post.icon = gt.graphic;
+        
+        if(params._contains("header-icon-id")){
+            try {
+                Long headerId = Long.valueOf(params.get("header-icon-id"));
+                GalleryIcon gt = GalleryIcon.findById(headerId);
+                if (gt != null && gt.graphic.exists()) {
+                    post.icon = gt.graphic;
+                }                
+            } catch (Exception e) {
+            }
         }
 
         post.save();
@@ -105,7 +107,8 @@ public class Blog extends Controller {
     }
 
     public static void showBlogPost(Long id) {
-        Post post = Post.findById(id);
+        Post post = null;
+        post = Post.findById(id);
         System.out.println(post.teaserIcon.getFile().getAbsolutePath());
         if (post == null)
             notFound();
