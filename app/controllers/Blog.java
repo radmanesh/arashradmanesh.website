@@ -69,9 +69,8 @@ public class Blog extends Controller {
 
     public static void updatePost(Long id) {
         Post post = Post.findById(id);
-        if (post == null)
-            notFound();
-
+        notFoundIfNull(post);
+        
         if (request.current().method.equals("GET")) {
             render(post);
         }
@@ -94,8 +93,7 @@ public class Blog extends Controller {
 
     public static void deletePost(Long id) {
         Post post = Post.findById(id);
-        if (post == null)
-            notFound();
+        notFoundIfNull(post);
         try {
             post.delete();
             flash.success(Messages.get("blog.success"));
@@ -109,9 +107,7 @@ public class Blog extends Controller {
     public static void showBlogPost(Long id) {
         Post post = null;
         post = Post.findById(id);
-        System.out.println(post.teaserIcon.getFile().getAbsolutePath());
-        if (post == null)
-            notFound();
+        notFoundIfNull(post);
 
         render(post);
     }
@@ -146,7 +142,7 @@ public class Blog extends Controller {
         File to = new File("public/upload/images/" + Codec.UUID() + ext);
         Files.copy(file, to);
         String url = Router.reverse(VirtualFile.open(to));
-        renderText("http://localhost:9000" + url);
+        renderText(Router.getBaseUrl() + url);
     }
 
     public static void sendComment(Long id) {

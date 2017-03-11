@@ -1,0 +1,42 @@
+#{if _as!="full"} *{ show it on home or mini view }*
+<div class="col-sm-6 col-xs-12">
+  #{if _post?.hasImage()}  *{ show post with image }*
+    <div class="thumbnail">
+      <img class="img-responsive" src="@{Blog.image(_post?.id)}" alt="${_?.title}">
+      <div class="caption">
+        <h3 class="text-center">${_?.title}</h3>
+        <p>${_post?.excerpt?.raw()}</p>
+        <p>
+          <a href="@{Blog.showPost(_post?.id)}" class="btn btn-primary text-center">Read</a>
+        </p>
+      </div>
+    </div>
+  #{/if}
+  #{else}  *{ show post without image }*
+    <h3 class="text-center">${_?.title}</h3>
+    <p>${_post?.excerpt?.raw()}</p>
+    <p>
+      <a href="@{Blog.showPost(_post?.id)}" class="btn btn-link">View</a>
+    </p>
+  #{/else}
+</div>
+#{/if}
+#{else}  *{  show full post }*
+
+  <div class="wrapper post-container post2">
+    <h2 class="post-header"><a href="@{Blog.showPost(_post?.id)}">${_post?.title}</a></h2>
+    <p class="post-title lead"> by <a href="@{Application.playerProfile(_post?.author?.getUserName())}" class="link">${_post?.author?.getUserName()}</a></p>
+    <p class="sub-title"><i class="fa fa-clock-o"></i> Posted on ${_post?.postedAt}</p>
+    #{if _as!="full"} 
+      <div class="post-content">
+        ${_post?.excerpt?.raw()}
+      </div>
+      <a class="btn btn-primary post-button" href="@{Blog.showPost(_post?.id)}">Read More <i class="fa fa-angle-right"></i></a>
+    #{/if}
+    #{if _as=='full'}
+      <div class="post-content">${_post?.content?.raw()}</div>
+    #{/if}
+  </div>
+
+#{/else}
+

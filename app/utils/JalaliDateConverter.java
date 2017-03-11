@@ -22,9 +22,9 @@ public class JalaliDateConverter {
 	public JalaliDateConverter(){
 		
 	}
-	public static void main(String[] args){
-		String julianString = "9/2/2012";
-		//System.out.println(persianToGeorgian(georgianToPersian(julianString)));
+	public static void main(String[] args) throws Exception{
+		String julianString = "3/11/2017";
+		System.out.println(georgianToPersian(julianString));
 	}
 	public static String persianToGeorgian(String persianDate) throws EmptyStackException{
 		String[] persian=persianDate.split("/");

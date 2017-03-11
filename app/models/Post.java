@@ -20,6 +20,9 @@ public class Post extends Model {
 
 	@Lob
 	public String content;
+	
+	@Lob
+	public String excerpt;
 
 	public Blob icon;
 	
