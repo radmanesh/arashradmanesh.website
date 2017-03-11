@@ -8,76 +8,114 @@
  *******************************************************************************/
 package models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 
+import play.Logger;
 import play.db.jpa.Model;
 
 @Entity
 public class Configuration extends Model {
 
-  public String key;
-  public String value;
-  private String name;
+    /** The key. */
+    @Column(name = "configKey")
+    public String key;
 
-  /**
-   * Main constructor.
-   * 
-   * @param key
-   * @param value
-   */
-  public Configuration(String name, String key, String value) {
-    this.name = name;
-    this.key = key;
-    this.value = value;
-  }
+    /** The value. */
+    @Column(name = "configValue")
+    public String value;
 
-  public String getName() {
-    if (this.name != null) {
-      return this.name;
+    /** The name. */
+    @Column(name = "configName")
+    private String name;
+
+    /**
+     * Main constructor.
+     *
+     * @param name
+     *            the name
+     * @param key
+     *            the key
+     * @param value
+     *            the value
+     */
+    public Configuration(String name, String key, String value) {
+        this.name = name;
+        this.key = key;
+        this.value = value;
     }
-    return this.key;
-  }
 
-  /**
-   * Returns value of configuration with the desired key.
-   * 
-   * @param key
-   * @return
-   */
-  public static String get(String key, String defaultValue) {
-    Configuration c = find("key = ?", key).first();
-    if (c != null) {
-      return c.value;
+    public String getName() {
+        if (this.name != null) {
+            return this.name;
+        }
+        return this.key;
     }
-    return defaultValue;
-  }
 
-  /**
-   * Returns integer value of configuration with the desired key.
-   * 
-   * @param key
-   * @return Integer
-   */
-  public static Integer get(String key, Integer defaultValue) {
-    Configuration c = find("key = ?", key).first();
-    if (c != null) {
-      return Integer.valueOf(c.value);
+    /**
+     * Returns value of configuration with the desired key.
+     *
+     * @param key
+     *            the key
+     * @param defaultValue
+     *            the default value
+     * @return the string
+     */
+    public static String get(String key, String defaultValue) {
+        Configuration c = Configuration.find("key", key).first();
+        if (c != null && c.value != null && !c.value.isEmpty()) {
+            return c.value;
+        }
+        return defaultValue;
     }
-    return defaultValue;
-  }
 
-  public static void set(String name, String key, String value) {
-    Configuration c = find("key = ?", key).first();
-    if (c == null) {
-      c = new Configuration(name, key, value);
-    } else {
-      c.name = name;
-      c.value = value;
+    /**
+     * Returns integer value of configuration with the desired key.
+     *
+     * @param key
+     *            the key
+     * @param defaultValue
+     *            the default value
+     * @return Integer
+     */
+    public static Integer get(String key, Integer defaultValue) {
+        Configuration c = find("key", key).first();
+        if (c != null) {
+            try {
+                return Integer.valueOf(c.value);
+            }catch (Exception e) {
+                Logger.debug(e, "");
+            }
+        }
+        return defaultValue;
     }
-    c.save();
-  }
 
-  public String toString() {
-    return "Configuration[" + key + "]=" + value + "";
-  }
+    /**
+     * Sets the.
+     *
+     * @param name
+     *            the name
+     * @param key
+     *            the key
+     * @param value
+     *            the value
+     */
+    public static void set(String name, String key, String value) {
+        Configuration c = find("key", key).first();
+        if (c == null) {
+            c = new Configuration(name, key, value);
+        }else {
+            c.name = name;
+            c.value = value;
+        }
+        c.save();
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see play.db.jpa.JPABase#toString()
+     */
+    public String toString() {
+        return "Configuration[" + key + "]=" + value + "";
+    }
 }
