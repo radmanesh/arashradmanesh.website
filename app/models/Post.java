@@ -34,7 +34,7 @@ public class Post extends Model {
 
 	public String author;
 
-	@OneToMany(mappedBy = "parent")
+	@OneToMany(mappedBy = "post")
 	public List<Comment> comments;
 
 	@ManyToMany(cascade = CascadeType.PERSIST)

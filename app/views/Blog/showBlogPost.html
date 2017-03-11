@@ -36,7 +36,7 @@
 
       <ol class="comments-list">
       #{list post.comments}
-        #{blog.comment _ /}
+        #{blog.comment comment:_ /}
       #{/list}
       </ol>
 
@@ -81,3 +81,40 @@
 </div>
 <!-- /row comments -->
 <div class="clearfix"></div>
+
+<!-- /.row -->
+<div class="modal fade" id="replyCommentModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form role="form" class="form-normal" action="@{Blog.replyComment()}">
+                <input id="modalCommentIdInput" type="hidden" name="id" value='-1'/>
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Reply with</h4> 
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="replyContentInput" name='content' placeholder="Reply Content">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button class="btn btn-primary" type="submit">Reply</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+#{set 'moreScripts'}
+<script type="text/javascript">
+  $('body').on('click','.comment-reply-btn[data-comment-id]',function(){
+    var cid=$(this).data('comment-id');
+    //alert(cid);
+    if(cid && cid>=0){
+      var $modal = $('#replyCommentModal');
+      $("#modalCommentIdInput").val(cid);
+      $modal.modal('toggle');
+    }
+  });
+</script>
+#{/set}

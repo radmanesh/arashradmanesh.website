@@ -4,30 +4,19 @@
     <img src="@{'public/img/avatar.png'}" alt="Avatar" class="avatar">
 
     <div class="comment-meta">
-      <span class="author"><a ${_?.website ? 'href="_?.website"' : ''}>${_?.name}</a></span> <span class="date">${utils.JalaliDateConverter.formattedPersian(_?.publishedAt)}</span>
-      <span class="reply"><a href="#">پاسخ</a></span>
+      <span class="author"><a ${_comment?.website ? 'href="_comment?.website"' : ''}>${_comment?.name}</a></span> <span class="date">${utils.JalaliDateConverter.formattedPersian(_comment?.publishedAt)}</span>
+      <span class="reply"><a class="comment-reply-btn" data-comment-id="${_comment?.id}">پاسخ</a></span>
     </div>
 
-    <div class="comment-body">${_?.content}</div>
-  </div>
-*{
-          <ul class="children">
-            <li class="comment">
-              <div>
-                <img src="assets/images/avatar_man.png" alt="Avatar" class="avatar">
-
-                <div class="comment-meta">
-                  <span class="author"><a href="#">John Doe</a></span> <span class="date"><a href="#">January 22, 2011 at 4:55 pm</a></span>
-                  <span class="reply"><a href="#">Reply</a></span>
-                </div>
-                <!-- .comment-meta -->
-
-                <div class="comment-body">Morbi velit eros, sagittis in facilisis non, rhoncus et erat. Nam posuere tristique sem, eu
-                  ultricies tortor imperdiet vitae. Curabitur lacinia neque non metus.</div>
-                <!-- .comment-body -->
-              </div>
-            </li>
-          </ul>
-          <!-- .children -->
-}*
+    <div class="comment-body">${_comment?.content}</div>
+  </div> 
+  #{if _comment?.comments?.size() > 0} 
+  <ul class="children">
+    #{list items:_comment?.comments }
+      <!-- Nested Comment -->
+      #{parts.comment comment:_ /}
+    #{/list}
+  </ul>
+  <!-- .children -->
+  #{/if}
 </li>

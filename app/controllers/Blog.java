@@ -148,9 +148,20 @@ public class Blog extends Controller {
     public static void sendComment(Long id) {
         Comment comment = new Comment(id);
         comment.edit(params.getRootParamNode(), "comment");
+        validation.valid(comment);
+        if(validation.hasErrors()){
+            params.flash();
+            validation.keep();
+            showBlogPost(id);
+        }
         comment.save();
 
         showBlogPost(id);
+    }
+    
+    public static void replyComment(Comment comment,String content){
+        comment.reply(content);
+        showBlogPost(comment.getRoot().getId());
     }
 
     public static void renderGraphicTemplate(Long id) {
