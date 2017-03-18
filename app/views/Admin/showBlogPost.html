@@ -1,0 +1,95 @@
+#{extends 'admin.html' /} #{set title:'Home' /}
+
+<div class="row topspace">
+  <div class="col-sm-8 col-sm-offset-2">
+
+    <article class="post">
+      <header class="entry-header">
+        <div class="entry-meta">
+          <span class="posted-on"><time class="entry-date published" date="2013-06-17">${utils.JalaliDateConverter.formattedPersian(post?.publishedAt)}</time></span>
+        </div>
+        <h1 class="entry-title">
+          <a href="@{showBlogPost(post.id)}" rel="bookmark">${post?.title}</a>
+          <a href="@{updatePost(post.id)}" class="btn btn-default pull-right">ویرایش</a>
+        </h1>
+
+      </header>
+      <div class="entry-content">
+        <p>
+          <img src="@{getPostIcon(post.id)}" alt="Post icon"></img>
+        </p>
+        ${post.content.raw()}
+      </div>
+    </article>
+    <!-- #post-## -->
+
+  </div>
+</div>
+<!-- /row post  -->
+
+<div class="row">
+  <div class="col-sm-8 col-sm-offset-2">
+
+    <div id="comments">
+      <h3 class="comments-title">${post?.comments?.size()} &{'blog.comments'}</h3>
+      <a href="#comment-form" class="leave-comment">&{'blog.leave-comment'}</a>
+
+      <ol class="comments-list">
+      #{list post.comments}
+        #{blog.comment comment:_ /}
+      #{/list}
+      </ol>
+
+      <div class="clearfix"></div>
+
+      <nav id="comment-nav-below" class="comment-navigation clearfix" role="navigation">
+        <div class="nav-content">
+          <div class="nav-previous">&larr; Older Comments</div>
+          <div class="nav-next">Newer Comments &rarr;</div>
+        </div>
+      </nav>
+      <!-- #comment-nav-below -->
+
+
+    </div>
+  </div>
+</div>
+<!-- /row comments -->
+<div class="clearfix"></div>
+
+<!-- /.row -->
+<div class="modal fade" id="replyCommentModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form role="form" class="form-normal" action="@{Blog.replyComment()}">
+                <input id="modalCommentIdInput" type="hidden" name="id" value='-1'/>
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Reply with</h4> 
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="replyContentInput" name='content' placeholder="Reply Content">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button class="btn btn-primary" type="submit">Reply</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+#{set 'moreScripts'}
+<script type="text/javascript">
+  $('body').on('click','.comment-reply-btn[data-comment-id]',function(){
+    var cid=$(this).data('comment-id');
+    //alert(cid);
+    if(cid && cid>=0){
+      var $modal = $('#replyCommentModal');
+      $("#modalCommentIdInput").val(cid);
+      $modal.modal('toggle');
+    }
+  });
+</script>
+#{/set}

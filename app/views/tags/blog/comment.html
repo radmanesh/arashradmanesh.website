@@ -4,7 +4,7 @@
     <img src="@{'public/img/avatar.png'}" alt="Avatar" class="avatar">
 
     <div class="comment-meta">
-      <span class="author"><a ${_comment?.website ? 'href="_comment?.website"' : ''}>${_comment?.name}</a></span> <span class="date">${utils.JalaliDateConverter.formattedPersian(_comment?.publishedAt)}</span>
+      <span class="author"><a ${_comment?.website ? 'href="_comment?.website"' : ''}>${_comment?.authorName}</a></span> <span class="date">${utils.JalaliDateConverter.formattedPersian(_comment?.publishedAt)}</span>
       <span class="reply"><a class="comment-reply-btn" data-comment-id="${_comment?.id}">پاسخ</a></span>
     </div>
 

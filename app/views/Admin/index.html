@@ -1,0 +1,37 @@
+#{extends 'admin.html' /}
+#{set title:'Blog' /}
+
+<div class="row topspace">
+  <div class="col-sm-8 col-sm-offset-2">
+  #{secure.check models.AccountRole.ADMINISTRATOR}
+    <div class="text-center">
+        <a class="btn btn-primary" href="@{newPost()}">پست جدید</a>
+    </div>
+  #{/secure.check}
+  
+  <hr />
+
+  #{list posts}
+    <article class="post">
+      <header class="entry-header">
+        <div class="entry-meta">
+          <span class="posted-on"><time class="entry-date published" date="2013-09-27">
+            ${utils.JalaliDateConverter.formattedPersian(_.publishedAt)}</time>
+          </span>
+        </div>
+        <h1 class="entry-title">
+          <a href="@{Blog.showBlogPost(_.id)}" rel="bookmark">${_?.title}</a>
+        </h1>
+      </header>
+      <div class="entry-content">
+        <p>
+          <img src="@{Blog.getPostIcon(_.id)}" alt="Post icon"></img>
+        </p>
+        ${_.content.raw()}
+        <a href="@{showBlogPost(_.id)}" class="more-link">ادامهٔ مطلب&#8230;</a>
+      </div>
+    </article>    
+  #{/list}
+
+  </div>
+</div>

@@ -17,6 +17,8 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import play.data.validation.Email;
+import play.data.validation.URL;
 import play.db.jpa.Model;
 
 @Entity
@@ -41,18 +43,30 @@ public class Comment extends Model {
   
   public Boolean deleted = false;
 
-  public Date createdAt = new Date();
-  public Date modifiedAt = new Date();
+  public String authorName;
+  
+  @Email
+  public String email;
+  
+  @URL
+  public String website;
+
+  public Date publishedAt;
+  public Date modifiedAt;
   
   public Comment(Long postId){
       post = Post.findById(postId);
       comments = new ArrayList<Comment>();
+      publishedAt = new Date();
+      modifiedAt =  new Date();
   }
   
   public Comment(Post post,String content){
       comments = new ArrayList<Comment>();
       this.post = post;
       this.content = content;
+      publishedAt  = new Date();
+      modifiedAt = new Date();
   }
   
   public Comment(Comment cmnt,String content){
@@ -60,6 +74,8 @@ public class Comment extends Model {
       parent = cmnt;
       this.post = cmnt.getPost();
       this.content = content;
+      publishedAt  = new Date();
+      modifiedAt = new Date();
   }
 
   public Comment reply(String content) {
@@ -67,6 +83,7 @@ public class Comment extends Model {
       this.comments.add(reply);
       reply.save();
       return reply;
+
   }
   
   public Comment getRoot() {

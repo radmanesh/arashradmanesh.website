@@ -4,18 +4,21 @@ import java.io.File;
 import java.util.Date;
 import java.util.List;
 
+import controllers.security.Check;
+import controllers.security.Secure;
+import models.AccountRole;
 import models.Comment;
-import models.Configuration;
 import models.GalleryIcon;
 import models.Post;
 import play.i18n.Messages;
 import play.libs.Codec;
 import play.libs.Files;
-import play.mvc.Controller;
-import play.mvc.Router;
+import play.mvc.*;
 import play.vfs.VirtualFile;
 
-public class Blog extends Controller {
+@With(Secure.class)
+@Check(AccountRole.ADMINISTRATOR)
+public class Admin extends Controller {
 
     public static void index() {
         List<Post> posts = Post.all().fetch();
@@ -145,26 +148,6 @@ public class Blog extends Controller {
         String url = Router.reverse(VirtualFile.open(to));
         renderText(Router.getBaseUrl() + url);
     }
-
-    public static void sendComment(Long id) {
-        Comment comment = new Comment(id);
-        comment.edit(params.getRootParamNode(), "comment");
-        validation.valid(comment);
-        if(validation.hasErrors()){
-            params.flash();
-            validation.keep();
-            showBlogPost(id);
-        }
-        comment.save();
-
-        showBlogPost(id);
-    }
-    
-    public static void replyComment(Comment comment,String content){
-        comment.reply(content);
-        showBlogPost(comment.getRoot().getId());
-    }
-
     public static void renderGraphicTemplate(Long id) {
         final GalleryIcon gt = GalleryIcon.findById(id);
         if (gt == null)
@@ -174,5 +157,4 @@ public class Blog extends Controller {
         java.io.InputStream binaryData = gt.graphic.get();
         renderBinary(binaryData);
     }
-
 }

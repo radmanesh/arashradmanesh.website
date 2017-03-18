@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>#{get 'title' /}</title>
+  <meta charset="${_response_encoding}">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link href="@{'public/css/bootstrap.min.css'}" rel="stylesheet">
+  <link href="@{'public/css/bootstrap-rtl.min.css'}" rel="stylesheet">
+  <link href="@{'public/css/font-awesome.min.css'}" rel="stylesheet">
+  <style>
+  body>.container{
+      margin-top: 60px;
+      padding-top :20px;
+  }
+  </style>
+  <script src="@{'public/js/jquery.min.js'}"></script>
+  
+  #{if get('withSummer')}
+  <link href="@{'public/plugins/summernote/summernote.css'}" rel="stylesheet">
+  #{/if}
+  
+  #{get 'moreStyles' /}
+
+  <link rel="shortcut icon" type="image/png" href="@{'public/img/favicon.png'}">
+
+</head>
+<body>
+  <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span
+            class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">آرش رادمنش</a>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-left">
+          <li><a href="#">بلاگ</a></li>
+          <li><a href="#">کتابخانه</a></li>
+          <li><a href="#">متفرقه</a></li>
+          <li><a href="#">درباره</a></li>
+        </ul>
+        <form class="navbar-form navbar-left">
+          <input type="text" class="form-control" placeholder="جستجو...">
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+
+      #{doLayout /}
+      
+    </div>
+  </div>
+  
+  <!-- Bootstrap core JavaScript -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="@{'public/js/bootstrap.min.js'}"></script>
+  #{if get('withSummer')}
+    <script src="@{'/public/plugins/summernote/summernote.min.js'}" type="text/javascript"></script>
+    <script src="@{'/public/plugins/summernote/plugin/summernote-ext-rtl.js'}" type="text/javascript"></script>
+    <script src="@{'/public/plugins/summernote/plugin/uploadcare.js'}" type="text/javascript"></script>
+
+    <script type="text/javascript">
+      $(function() {
+        $('textarea.summernote').summernote({
+          uploadcare: {
+            publicKey: '6e78f88672e8cb5dc130',
+            crop: 'free',
+            tabs: 'all',
+            tooltipText: 'Upload files or video or something',
+            multiple: true
+          },
+          height: 300,
+          // unfortunately you can only rewrite
+          // all the toolbar contents, on the bright side
+          // you can place uploadcare button wherever you want
+          toolbar: [
+            ['uploadcare', ['uploadcare']], // here, for example
+            ['style', ['style']],
+            ['font', ['bold', 'italic', 'underline', 'clear']],
+            ['fontname', ['fontname']],
+            ['color', ['color']],
+            ['fontsize', ['fontsize']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['insert',['ltr','rtl']],
+            ['height', ['height']],
+            ['table', ['table']],
+            ['insert', ['media', 'link', 'hr', 'picture', 'video']],
+            ['view', ['fullscreen', 'codeview']],
+            ['help', ['help']]
+          ]
+        });
+      });
+    </script>
+  #{/if}
+  
+  #{get 'moreScripts' /}
+  
+</body>
+</html>

@@ -42,7 +42,10 @@ public class JalaliDateConverter {
 	}
 	
 	public static String georgianToPersian(String georgianDate) throws ParseException {
-		SimpleDateFormat sdf= new SimpleDateFormat("MM/dd/yyyy");
+        if(georgianDate==null)
+            return "N/A";
+        
+	    SimpleDateFormat sdf= new SimpleDateFormat("MM/dd/yyyy");
 		
 		long j=sdf.parse(georgianDate).getTime();
 		long julian = (long)Math.floor((j - JULIAN_EPOCH_MILLIS)/ONE_DAY_MILLIS);
@@ -55,7 +58,9 @@ public class JalaliDateConverter {
 	}
 	
 	public static String georgianToPersian(Date date) {
-		long j=date.getTime();
+        if(date==null)
+            return "N/A";
+	    long j=date.getTime();
 		long julian = (long)Math.floor((j - JULIAN_EPOCH_MILLIS)/ONE_DAY_MILLIS);
 		long r = jp(julian);
 		int year = (int)y(r);
@@ -66,6 +71,8 @@ public class JalaliDateConverter {
 	}
 	
 	public static String formattedPersian(Date date) {
+	    if(date==null)
+	        return "N/A";
 		long j=date.getTime();
 		long julian = (long)Math.floor((j - JULIAN_EPOCH_MILLIS)/ONE_DAY_MILLIS);
 		long r = jp(julian);

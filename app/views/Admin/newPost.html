@@ -1,0 +1,135 @@
+#{extends 'admin.html' /}
+#{set 'title'} &{'blog.newPost.title'} #{/set}
+
+#{set 'withSummer'} true #{/set}
+
+<!-- gallery-teaser-modal -->
+<div class="modal fade" id="gallery-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="modalLabel">gallery</h4>
+      </div>
+      <div class="modal-body">
+        #{list teasers}
+          <a class="icon-select" href="#" data-id="${_.id}" >
+            <img class="img-circle gallery-teaser-icon" src="@{renderGraphicTemplate(_.id)}">
+          </a>
+        #{/list}
+      </div>
+
+    </div>
+  </div>
+  
+  <script>
+  $('a.icon-select').on('click',function(){
+    $('#teaser-icon-input').attr('value',$(this).data('id'));
+    $('#teaser-icon-container img').attr('src',$(this).children('img').attr('src'));
+    $('#gallery-modal').modal('hide');
+  });
+  </script>
+</div>
+<!-- end of modal -->
+
+<!-- gallery modal -->
+<div class="modal fade" id="gallery-modal-header" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">gallery</h4>
+      </div>
+      <div class="modal-body">
+        #{list headers}
+          <a class="header-icon-select" href="#" data-id="${_.id}" >
+            <img class="img-thumbnail gallery-header-icon" src="@{renderGraphicTemplate(_.id)}">
+          </a>
+        #{/list}
+      </div>
+
+    </div>
+  </div>
+</div>
+<!--./end of modal -->
+
+<!-- new gallery icon -->
+<div class="modal fade" id="new-gallery-icon" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">gallery</h4>
+      </div>
+      <div class="modal-body">
+      </div>
+    </div>
+    
+  </div>
+</div>
+<!--./end of modal -->
+
+
+  
+  <script>
+   $('a.header-icon-select').on('click',function(){
+    $('#header-icon-input').attr('value',$(this).data('id'));
+    $('#header-icon-container img').attr('src',$(this).children('img').attr('src'));
+    $('#gallery-modal-header').modal('hide');
+  });
+  </script>
+<!-- end of modal -->
+
+
+
+<h1 class="page-header">پست جدید</h1>
+<div class="page-container new-post">
+    #{form @newPost(), method:'POST', enctype:'multipart/form-data'}
+        <fieldset>
+
+            <div class="form-group" style="text-align:center;">
+              <label for="teaser-icon-container">تصویر تیزر پست</label>
+              <input id="teaser-icon-input" type="hidden" name="teaser-icon-id">
+              <div id="teaser-icon-container">
+                <a data-toggle="modal" data-target="#gallery-modal"><img class="img-circle" src="@{'public/img/blog-teaser.png'}" ></a>
+                
+              </div>
+            </div>
+
+            <div class="form-group">
+                <label for="post_title">&{'post.title'}</label>
+                <input type="text" class="form-control" id="post_title" name="post.title" placeholder="&{'post.title'}">
+            </div>
+
+            <div class="form-group" style="text-align:center;">
+              <label for="header-icon-container">تصویر پست</label>
+              <input id="header-icon-input" type="hidden" name="header-icon-id">
+              <div id="header-icon-container">
+                <a data-toggle="modal" data-target="#gallery-modal-header"><img class="img-thumbnail" src="@{'public/img/blog-header.png'}" ></a>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="post-tags">برچسب‌ها</label>
+              <input id="post-tags" disabled>
+            </div>
+
+
+            <div class="form-group">
+                <label for="post_content">&{'post.content'}</label>
+                <textarea class="form-control summernote" name="post.content">${post?.content}</textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">&{'blog.save'}</button>
+        </fieldset>
+    #{/form}
+
+</div>
+
+
+#{set 'moreStyles'}
+  <link rel="stylesheet" href="@{'public/css/jasny-bootstrap.min.css'}">
+#{/set}
+
+#{set 'moreScripts'}
+    <script src="@{'/public/js/jasny-bootstrap.min.js'}" type="text/javascript" charset="UTF-8"></script>
+#{/set}
