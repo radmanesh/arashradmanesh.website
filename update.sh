@@ -14,8 +14,6 @@ fi
 
 $PLAY_COMMAND stop . --%prod
 
-killall  java
-
 git pull origin arash.play
 
 $PLAY_COMMAND deps .
