@@ -21,7 +21,7 @@
 
     </div>
   </div>
-  
+
   <script>
   $('a.icon-select').on('click',function(){
     $('#teaser-icon-input').attr('value',$(this).data('id'));
@@ -64,13 +64,13 @@
       <div class="modal-body">
       </div>
     </div>
-    
+
   </div>
 </div>
 <!--./end of modal -->
 
 
-  
+
   <script>
    $('a.header-icon-select').on('click',function(){
     $('#header-icon-input').attr('value',$(this).data('id'));
@@ -92,7 +92,7 @@
               <input id="teaser-icon-input" type="hidden" name="teaser-icon-id">
               <div id="teaser-icon-container">
                 <a data-toggle="modal" data-target="#gallery-modal"><img class="img-circle" src="@{'public/img/blog-teaser.png'}" ></a>
-                
+
               </div>
             </div>
 
@@ -112,7 +112,7 @@
             <div class="form-group">
                 <input type="hidden" name="header-icon-url" role="uploadcare-uploader" data-crop="" />
             </div>
-            
+
             <div class="form-group">
               <label for="post-tags">برچسب‌ها</label>
               <input id="post-tags" disabled>
@@ -136,7 +136,7 @@
 
 #{set 'moreScripts'}
     <script src="@{'/public/js/jasny-bootstrap.min.js'}" type="text/javascript" charset="UTF-8"></script>
-    
+
     <!-- Uploadcare widget -->
     <script>
         UPLOADCARE_PUBLIC_KEY = 'da6e9343b4ad6b89adc7';
@@ -145,13 +145,13 @@
         UPLOADCARE_CLEARABLE = true;
     </script>
     <script charset="utf-8" src="https://ucarecdn.com/libs/widget/2.10.3/uploadcare.full.min.js"></script>
-    #{script}
+    <script>
       uploadcare.openDialog().done(function(file) {
         file.promise().done(function(fileInfo){
           console.log(fileInfo.cdnUrl);
         });
       });
-    #{/script}
+    </script>
 <!--
 
 //-->
