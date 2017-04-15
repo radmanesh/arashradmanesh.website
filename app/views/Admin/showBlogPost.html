@@ -30,11 +30,11 @@
 <div class="row">
   <div class="col-sm-8 col-sm-offset-2">
 
-    <div id="comments">
-      <h3 class="comments-title">${post?.comments?.size()} &{'blog.comments'}</h3>
+    <div id="children">
+      <h3 class="children-title">${post?.comments?.size()} &{'blog.children'}</h3>
       <a href="#comment-form" class="leave-comment">&{'blog.leave-comment'}</a>
 
-      <ol class="comments-list">
+      <ol class="children-list">
       #{list post.comments}
         #{blog.comment comment:_ /}
       #{/list}
@@ -54,7 +54,7 @@
     </div>
   </div>
 </div>
-<!-- /row comments -->
+<!-- /row children -->
 <div class="clearfix"></div>
 
 <!-- /.row -->

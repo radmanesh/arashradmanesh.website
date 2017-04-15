@@ -1,0 +1,80 @@
+/* Iranian Sans Web font as 'Iranian Sans' */
+@font-face {
+	font-family: 'Iranian Sans';
+	src: url('/public/fonts/iransans.eot');
+	src: local('Iranian Sans'), url('/public/fonts/iransans.woff') format('woff'), url('/public/fonts/iransans.ttf') format('truetype'), url('/public/fonts/iransans.svgz') format('svg'), url('/public/fonts/iransans.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+
+	/* for IE */
+}
+@font-face {
+	font-family: 'Iranian Sans';
+	src: local('Iranian Sans'), url('/public/fonts/iransansb.ttf') format('truetype');
+	font-weight: bold;
+	font-style: normal;
+}
+/* XB Roya Web font as 'XB Roya' */
+@font-face {
+	font-family: 'XB Roya';
+	src: local('XB Roya'), local('Roya'), url('/public/fonts/xbroya.woff') format('woff'), url('/public/fonts/xbroya.ttf') format('truetype'), url('/public/fonts/xbroya.svg') format('svg');
+	src: url('/public/fonts/xbroya.eot');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'XB Roya';
+	src: url('/public/fonts/XBRoyaBd.ttf') format('truetype');
+	font-weight: bold;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'XB Roya';
+	src: url('/public/fonts/XBRoyaBdIt.ttf') format('truetype');
+	font-weight: bold;
+	font-style: italic;
+}
+@font-face {
+	font-family: 'XB Roya';
+	src: url('/public/fonts/XBRoyaIt.ttf') format('truetype');
+	font-weight: normal;
+	font-style: italic;
+}
+
+/* XM Traffic Web font as 'Traffic' */
+@font-face {
+	font-family: 'Traffic';
+	src: local('Traffic'), local('XM Traffic'), url('/public/fonts/XMTraffic.woff') format('woff'), url('/public/fonts/XMTraffic.ttf') format('truetype');
+	src: url('/public/fonts/XMTraffic.eot');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Traffic';
+	src: local('Traffic'), local('XM Traffic'), url('/public/fonts/XMTrafficBd.woff') format('woff'), url('/public/fonts/XMTrafficBd.ttf') format('truetype');
+	src: url('/public/fonts/XMTrafficBd.eot');
+	font-weight: bold;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Traffic';
+	src: url('/public/fonts/XM Traffic It.ttf') format('truetype');
+	font-weight: normal;
+	font-style: italic;
+}
+@font-face {
+	font-family: 'Traffic';
+	src: url('/public/fonts/XM Traffic BdIt.ttf') format('truetype');
+	font-weight: bold;
+	font-style: italic;
+}
+/**
+ Home Font
+ */
+@font-face {
+	font-family: 'Homa';
+	src: local('BHoma'), local('Homa'), url('/public/fonts/BHoma.woff') format('woff'), url('/public/fonts/BHoma.ttf') format('truetype');
+	src: url('/public/fonts/BHoma.eot');
+	font-weight: normal;
+	font-style: normal;
+}

@@ -30,10 +30,10 @@ public class Comment extends Model {
   @ManyToOne
   public Post post;
   
-  @OneToMany(mappedBy="parent", cascade=CascadeType.ALL)
-  public List<Comment> comments;
+  @OneToMany(mappedBy="parent")
+  public List<Comment> children;
   
-  @ManyToOne
+  @ManyToOne(targetEntity = Comment.class)
   public Comment parent ;
 
   @Lob
@@ -56,31 +56,33 @@ public class Comment extends Model {
   
   public Comment(Long postId){
       post = Post.findById(postId);
-      comments = new ArrayList<Comment>();
+      children = new ArrayList<Comment>();
       publishedAt = new Date();
       modifiedAt =  new Date();
   }
   
   public Comment(Post post,String content){
-      comments = new ArrayList<Comment>();
+      children = new ArrayList<Comment>();
       this.post = post;
       this.content = content;
       publishedAt  = new Date();
       modifiedAt = new Date();
   }
   
-  public Comment(Comment cmnt,String content){
-      comments = new ArrayList<Comment>();
-      parent = cmnt;
-      this.post = cmnt.getPost();
+  public Comment(Comment parentComment,String content){
+      children = new ArrayList<Comment>();
+      parent = parentComment;
+      //post = parentComment.getPost();
       this.content = content;
       publishedAt  = new Date();
       modifiedAt = new Date();
   }
 
   public Comment reply(String content) {
-      Comment reply = new Comment(this, content);
-      this.comments.add(reply);
+      Comment reply = new Comment(post,content);
+      reply.save();
+      this.children.add(reply);
+      reply.parent = this;
       reply.save();
       return reply;
 
@@ -103,9 +105,9 @@ public class Comment extends Model {
   
   public List<Comment> allDescendantComments(){
       List<Comment> allComments = new ArrayList<Comment>();
-      if(comments==null || comments.isEmpty())
+      if(children ==null || children.isEmpty())
           return allComments;
-      for(Comment c:comments){
+      for(Comment c: children){
           if(!c.deleted){
               allComments.add(c);
               allComments.addAll(c.allDescendantComments());
@@ -116,10 +118,10 @@ public class Comment extends Model {
   
   public List<Comment> allDescendantConfirmedComments(){
       List<Comment> result = new ArrayList<Comment>();
-      if(comments==null || comments.isEmpty())
+      if(children ==null || children.isEmpty())
           return result;
 
-      for(Comment c:comments){
+      for(Comment c: children){
           if(!c.deleted){
               if(c.confirmed){ // Comment may have children
                   result.add(c);
@@ -132,10 +134,10 @@ public class Comment extends Model {
   
   public List<Comment> allDescendantPendingComments(){
       List<Comment> result = new ArrayList<Comment>();
-      if(comments==null || comments.isEmpty())
+      if(children ==null || children.isEmpty())
           return result;
 
-      for(Comment c:comments){
+      for(Comment c: children){
           if(!c.deleted){
               if(c.confirmed){ // Comment may have children
                   result.addAll(c.allDescendantPendingComments());

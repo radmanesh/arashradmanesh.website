@@ -10,11 +10,11 @@
 
     <div class="comment-body">${_comment?.content}</div>
   </div> 
-  #{if _comment?.comments?.size() > 0} 
+  #{if _comment?.children?.size() > 0}
   <ul class="children">
-    #{list items:_comment?.comments }
+    #{list items:_comment?.children }
       <!-- Nested Comment -->
-      #{parts.comment comment:_ /}
+      #{blog.comment comment:_ /}
     #{/list}
   </ul>
   <!-- .children -->

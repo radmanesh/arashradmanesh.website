@@ -24,8 +24,8 @@
                 <div class="date">
                   <i class="fa fa-calendar"></i> <span class="data">${utils.JalaliDateConverter.formattedPersian(post?.publishedAt)}</span>
                 </div>
-                <div class="comments">
-                  <i class="fa fa-comments"></i> <span class="data"><a href="#comments">${post?.comments?.size()} نظر </a></span>
+                <div class="children">
+                  <i class="fa fa-children"></i> <span class="data"><a href="#children">${post?.comments?.size()} نظر </a></span>
                 </div>
               </div>
             </div>
@@ -45,11 +45,11 @@
           </a>
         </aside>
 
-        <aside class="comments" id="comments">
+        <aside class="children" id="children">
           <hr>
             
           <h2>
-            <i class="fa fa-comments"></i>${post?.comments?.size()} نظر 
+            <i class="fa fa-children"></i>${post?.comments?.size()} نظر
           </h2>
           
           #{list post.comments}

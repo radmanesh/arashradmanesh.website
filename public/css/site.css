@@ -1,21 +1,50 @@
+/*************************
+*        Fonts
+*     fonts.less
+************************ */
+/* Iranian Sans Web font as 'Iranian Sans' */
 @font-face {
-  font-family: 'B Roya';
-  src: url('/public/fonts/2roya.otf') format('opentype');
+  font-family: 'Iranian Sans';
+  src: url('/public/fonts/iransans.eot');
+  src: local('Iranian Sans'), url('/public/fonts/iransans.woff') format('woff'), url('/public/fonts/iransans.ttf') format('truetype'), url('/public/fonts/iransans.svgz') format('svg'), url('/public/fonts/iransans.svg') format('svg');
   font-weight: normal;
   font-style: normal;
+
+  /* for IE */
 }
 @font-face {
-  font-family: 'IranianSans';
-  src: url('/public/fonts/irsans.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'IranianSans';
-  src: url('/public/fonts/irsansb.ttf') format('truetype');
+  font-family: 'Iranian Sans';
+  src: local('Iranian Sans'), url('/public/fonts/iransansb.ttf') format('truetype');
   font-weight: bold;
   font-style: normal;
 }
+/* XB Roya Web font as 'XB Roya' */
+@font-face {
+  font-family: 'XB Roya';
+  src: local('XB Roya'), local('Roya'), url('/public/fonts/xbroya.woff') format('woff'), url('/public/fonts/xbroya.ttf') format('truetype'), url('/public/fonts/xbroya.svg') format('svg');
+  src: url('/public/fonts/xbroya.eot');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'XB Roya';
+  src: url('/public/fonts/XBRoyaBd.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'XB Roya';
+  src: url('/public/fonts/XBRoyaBdIt.ttf') format('truetype');
+  font-weight: bold;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'XB Roya';
+  src: url('/public/fonts/XBRoyaIt.ttf') format('truetype');
+  font-weight: normal;
+  font-style: italic;
+}
+
 
 /**
   General

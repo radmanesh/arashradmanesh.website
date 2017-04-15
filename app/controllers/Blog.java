@@ -160,9 +160,10 @@ public class Blog extends Controller {
         showBlogPost(id);
     }
     
-    public static void replyComment(Comment comment,String content){
+    public static void replyComment(Long commentId,String content){
+        Comment comment = Comment.findById(commentId);
         comment.reply(content);
-        showBlogPost(comment.getRoot().getId());
+        showBlogPost(comment.getRoot().getPost().id);
     }
 
     public static void renderGraphicTemplate(Long id) {
