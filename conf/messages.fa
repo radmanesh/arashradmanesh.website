@@ -44,3 +44,7 @@ ratnic.ecommerce.ZarinPal=زرین‌پال
 ratnic.ecommerce.Shetab=شتاب (شاپرک)
 ratnic.ecommerce.ZarinPalUniqueKey=کلید یکتا
 ratnic.ecommerce.PaymentDescription=توضیحات پرداخت
+
+
+### CMS
+post.children = نظر کاربران

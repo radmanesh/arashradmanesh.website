@@ -10,55 +10,62 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import play.data.validation.URL;
 import play.db.jpa.Blob;
 import play.db.jpa.Model;
 
 @Entity
 public class Post extends Model {
 
-	public String title;
+    public String title;
 
-	@Lob
-	public String content;
-	
-	@Lob
-	public String excerpt;
+    @Lob
+    public String content;
 
-	public Blob icon;
-	
-	public Blob teaserIcon;
+    @Lob
+    public String excerpt;
 
-	public Date publishedAt;
+    public Blob icon;
 
-	public Date modifiedAt;
+    public Blob teaserIcon;
 
-	public String author;
+    @URL
+    public String teaserIconUrl;
 
-	@OneToMany(mappedBy = "post")
-	public List<Comment> comments;
+    @URL
+    public String iconUrl;
 
-	@ManyToMany(cascade = CascadeType.PERSIST)
-	public Set<Tag> tags;
+    public Date publishedAt;
 
-	public Post() {
-		publishedAt = new Date();
-		modifiedAt = new Date();
-		author = "آرش رادمنش";
-	}
+    public Date modifiedAt;
 
-	public Post tagItWith(String name) {
-		tags.add(Tag.findOrCreateByName(name));
-		return this;
-	}
+    public String author;
 
-	public static List<Post> findTaggedWith(String tag) {
-		return Post.find("select distinct p from Post p join p.tags as t where t.name = ?", tag).fetch();
-	}
+    @OneToMany(mappedBy = "post")
+    public List<Comment> comments;
 
-	public static List<Post> findTaggedWith(String... tags) {
-		return Post.find(
-		                "select distinct p.id from Post p join p.tags as t where t.name in (:tags) group by p.id having count(t.id) = :size")
-		                .bind("tags", tags).bind("size", tags.length).fetch();
-	}
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    public Set<Tag> tags;
+
+    public Post() {
+        publishedAt = new Date();
+        modifiedAt = new Date();
+        author = "آرش رادمنش";
+    }
+
+    public Post tagItWith(String name) {
+        tags.add(Tag.findOrCreateByName(name));
+        return this;
+    }
+
+    public static List<Post> findTaggedWith(String tag) {
+        return Post.find("select distinct p from Post p join p.tags as t where t.name = ?", tag).fetch();
+    }
+
+    public static List<Post> findTaggedWith(String... tags) {
+        return Post.find(
+                "select distinct p.id from Post p join p.tags as t where t.name in (:tags) group by p.id having count(t.id) = :size")
+                .bind("tags", tags).bind("size", tags.length).fetch();
+    }
 
 }

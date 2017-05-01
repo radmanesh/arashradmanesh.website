@@ -1,4 +1,5 @@
-#{extends 'main2.html' /} #{set title:'Home' /}
+#{extends 'main2.html' /}
+#{set 'title'} &{blog.show.post.page.title} #{/set}
 
 <div class="row topspace">
   <div class="col-sm-8 col-sm-offset-2">
@@ -11,7 +12,7 @@
         </div>
         <h1 class="entry-title">
           <a href="@{Blog.showBlogPost(post?.id)}" rel="bookmark">${post?.title}</a>
-          <a href="@{updatePost(post?.id)}" class="btn btn-default pull-right">ویرایش</a>
+          <a href="@{Admin.updatePost(post?.id)}" class="btn btn-default pull-right">&{'blog.post.edit'}</a>
         </h1>
 
       </header>
@@ -32,8 +33,8 @@
   <div class="col-sm-8 col-sm-offset-2">
 
     <div id="children">
-      <h3 class="children-title">${post?.comments?.size()} &{'blog.children'}</h3>
-      <a href="#comment-form" class="leave-comment">&{'blog.leave-comment'}</a>
+      <h3 class="children-title">${post?.comments?.size()} &{'post.children'}</h3>
+      <a href="#comment-form" class="leave-comment">&{'post.leave-comment'}</a>
 
       <ol class="children-list">
       #{list post?.comments}
@@ -45,41 +46,42 @@
 
       <nav id="comment-nav-below" class="comment-navigation clearfix" role="navigation">
         <div class="nav-content">
-          <div class="nav-previous">&larr; Older Comments</div>
-          <div class="nav-next">Newer Comments &rarr;</div>
+          <div class="nav-previous">&{'post.comments.older.comments'}</div>
+          <div class="nav-next">&{'post.comments.newer.comments'}</div>
         </div>
       </nav>
       <!-- #comment-nav-below -->
 
 
       <div id="respond">
-        <h3 id="reply-title">&{'blog.leave-comment'}</h3>
+        <h3 id="reply-title">&{'post.leave-comment'}</h3>
         <form action="@{sendComment(post.id)}" method="post" accept-charset="utf-8" id="comment-form" class="">
         #{if controllers.security.Security.isConnected()}
           <input type="hidden" name="comment.author" value="${controllers.security.Security.connectedAccount()?.id}">
         #{/if}
         #{else}
           <div class="form-group">
-            <label for="inputName">Name</label> <input type="text" name="comment.authorName" class="form-control"
-                                                       id="inputName" placeholder="Enter your name">
+            <label for="inputName">&{'post.comment.author.label'}</label>
+            <input type="text" name="comment.authorName" class="form-control" id="inputName"
+              placeholder="&{'post.comment.author.placeholder'}">
           </div>
         #{/else}
           <div class="form-group">
-            <label for="inputEmail">Email address <i class="text-danger">*</i></label>
+            <label for="inputEmail">&{'post.comment.email.label'}<i class="text-danger">*</i></label>
             <input type="email" name="comment.email" class="form-control" id="inputEmail"
-                   placeholder="Enter your email">
+                   placeholder="&{'post.comment.email.placeholder'}">
           </div>
           <div class="form-group">
-            <label for="inputWeb">Website</label> <input type="url" name="comment.website" class="form-control"
-                                                         id="inputWeb" placeholder="http://">
+            <label for="inputWeb">&{'post.comment.website.label'}</label> <input type="url" name="comment.website" class="form-control"
+                                                         id="inputWeb" placeholder="&{'post.comment.website.placeholder'}">
           </div>
           <div class="form-group">
-            <label for="inputComment">Comment</label>
-            <textarea name="comment.content" class="form-control" rows="6"></textarea>
+            <label for="inputComment">&{'post.comment.content.label'}</label>
+            <textarea name="comment.content" class="form-control" rows="6" placeholder="&{'post.comment.content.placeholder'}"></textarea>
           </div>
           <div class="row">
             <div class="col-md-4 col-md-offset-8 text-right">
-              <button type="submit" class="btn btn-action">Submit</button>
+              <button type="submit" class="btn btn-action">&{'general.submit'}</button>
             </div>
           </div>
         </form>
@@ -99,22 +101,22 @@
         <input id="modalCommentIdInput" type="hidden" name="commentId" value='-1'/>
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4 class="modal-title">Reply with</h4>
+          <h4 class="modal-title">&{'post.reply.modal.title'}</h4>
         </div>
         <div class="modal-body">
           <div class="form-group">
-            <label for="inputName">Name</label> <input type="text" name="comment.authorName" class="form-control"
-                                                       id="inputName" placeholder="Enter your name">
+            <label for="inputName">&{'post.reply.modal.authorName'}</label>
+            <input type="text" name="comment.authorName" class="form-control" id="inputName" placeholder="&{'post.reply.modal.author.placeholder'}">
           </div>
 
           <div class="form-group">
-            <input type="text" class="form-control" id="replyContentInput" name='content'
-                   placeholder="Reply Content">
+            <label for="inputComment">&{'post.reply.modal.content.label'}</label>
+            <textarea name="comment.content" class="form-control" rows="2" placeholder="&{'post.reply.modal.content.placeholder'}"></textarea>
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button class="btn btn-primary" type="submit">Reply</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">&{'general.close.button'}</button>
+          <button class="btn btn-primary" type="submit">&{'post.reply.button'}</button>
         </div>
       </form>
     </div>

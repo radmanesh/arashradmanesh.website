@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.File;
+import java.io.InputStream;
 import java.util.Date;
 import java.util.List;
 
@@ -8,9 +9,12 @@ import models.Comment;
 import models.Configuration;
 import models.GalleryIcon;
 import models.Post;
+import play.Logger;
 import play.i18n.Messages;
 import play.libs.Codec;
 import play.libs.Files;
+import play.libs.WS;
+import play.libs.WS.HttpResponse;
 import play.mvc.Controller;
 import play.mvc.Router;
 import play.vfs.VirtualFile;
@@ -20,89 +24,6 @@ public class Blog extends Controller {
     public static void index() {
         List<Post> posts = Post.all().fetch();
         render(posts);
-    }
-
-    public static void newPost(Post post) {
-        List<GalleryIcon> teasers = GalleryIcon.find("byType", "teaser").fetch();
-        List<GalleryIcon> headers = GalleryIcon.find("byType", "header").fetch();
-
-        if (post == null || request.current().method == "GET") {
-            render(post, teasers, headers);
-        }
-
-        validation.valid(post);
-        if (validation.hasErrors()) {
-            validation.keep();
-            params.flash();
-            renderArgs.put("error", Messages.get("blog.error"));
-            render(post, teasers, headers);
-        }
-        post.publishedAt = new Date();
-        post.modifiedAt = new Date();
-        
-        if(params._contains("teaser-icon-id")){
-            try {
-                Long teaserId = Long.valueOf(params.get("teaser-icon-id"));
-                GalleryIcon gt = GalleryIcon.findById(Long.valueOf(teaserId));
-                if (gt != null && gt.graphic.exists()) {
-                    post.teaserIcon = gt.graphic;
-                }                
-            } catch (Exception e) {
-            }
-        }
-        
-        if(params._contains("header-icon-id")){
-            try {
-                Long headerId = Long.valueOf(params.get("header-icon-id"));
-                GalleryIcon gt = GalleryIcon.findById(headerId);
-                if (gt != null && gt.graphic.exists()) {
-                    post.icon = gt.graphic;
-                }                
-            } catch (Exception e) {
-            }
-        }
-
-        post.save();
-
-        flash.success(Messages.get("blog.success"));
-        index();
-    }
-
-    public static void updatePost(Long id) {
-        Post post = Post.findById(id);
-        notFoundIfNull(post);
-        
-        if (request.current().method.equals("GET")) {
-            render(post);
-        }
-
-        post.edit(params.getRootParamNode(), "post");
-
-        validation.valid(post);
-        if (validation.hasErrors()) {
-            params.flash();
-            validation.keep();
-            render(post);
-        }
-
-        post.modifiedAt = new Date();
-        post.save();
-
-        flash.success(Messages.get("blog.success"));
-        index();
-    }
-
-    public static void deletePost(Long id) {
-        Post post = Post.findById(id);
-        notFoundIfNull(post);
-        try {
-            post.delete();
-            flash.success(Messages.get("blog.success"));
-            index();
-        } catch (Exception e) {
-            flash.error(play.i18n.Messages.get("post.deleteError"));
-            index();
-        }
     }
 
     public static void showBlogPost(Long id) {
@@ -117,7 +38,11 @@ public class Blog extends Controller {
         final Post post = Post.findById(id);
         if (post == null)
             notFound();
-        if (!post.icon.exists())
+
+        if(post.iconUrl!=null && !post.iconUrl.isEmpty())
+            redirect(post.iconUrl);
+
+        if (post.icon==null || !post.icon.exists())
             renderBinary(new File("public/img/hands-big.png"));
 
         response.setContentTypeIfNotSet(post.icon.type());
@@ -129,7 +54,11 @@ public class Blog extends Controller {
         final Post post = Post.findById(id);
         if (post == null)
             notFound();
-        if (!post.teaserIcon.exists())
+
+        if(post.iconUrl!=null && !post.iconUrl.isEmpty())
+            redirect(post.iconUrl);
+
+        if (post.teaserIcon==null || !post.teaserIcon.exists())
             renderBinary(new File("public/img/hands.png"));
 
         response.setContentTypeIfNotSet(post.teaserIcon.type());

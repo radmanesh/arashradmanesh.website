@@ -15,39 +15,39 @@ import play.db.jpa.Model;
 @Entity
 public class Publication extends Model {
 
-	public String title;
+    public String title;
 
-	@Lob
-	public String description;
+    @Lob
+    public String description;
 
-	public Blob icon;
-	
-	public Blob attachment;
+    public Blob icon;
 
-	public Date publishedAt;
+    public Blob attachment;
 
-	public Double price;
-	
-	@ManyToMany(cascade = CascadeType.PERSIST)
-	public Set<Tag> tags;
+    public Date publishedAt;
 
-	public Publication() {
-		publishedAt = new Date();
-	}
+    public Double price;
 
-	public Publication tagItWith(String name) {
-		tags.add(Tag.findOrCreateByName(name));
-		return this;
-	}
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    public Set<Tag> tags;
 
-	public static List<Publication> findTaggedWith(String tag) {
-		return Publication.find("select distinct p from Post p join p.tags as t where t.name = ?", tag).fetch();
-	}
+    public Publication() {
+        publishedAt = new Date();
+    }
 
-	public static List<Publication> findTaggedWith(String... tags) {
-		return Publication.find(
-		                "select distinct p.id from Post p join p.tags as t where t.name in (:tags) group by p.id having count(t.id) = :size")
-		                .bind("tags", tags).bind("size", tags.length).fetch();
-	}
+    public Publication tagItWith(String name) {
+        tags.add(Tag.findOrCreateByName(name));
+        return this;
+    }
+
+    public static List<Publication> findTaggedWith(String tag) {
+        return Publication.find("select distinct p from Post p join p.tags as t where t.name = ?", tag).fetch();
+    }
+
+    public static List<Publication> findTaggedWith(String... tags) {
+        return Publication.find(
+                "select distinct p.id from Post p join p.tags as t where t.name in (:tags) group by p.id having count(t.id) = :size")
+                .bind("tags", tags).bind("size", tags.length).fetch();
+    }
 
 }

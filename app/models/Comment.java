@@ -79,10 +79,9 @@ public class Comment extends Model {
   }
 
   public Comment reply(String content) {
-      Comment reply = new Comment(post,content);
+      Comment reply = new Comment(this,content);
       reply.save();
       this.children.add(reply);
-      reply.parent = this;
       reply.save();
       return reply;
 

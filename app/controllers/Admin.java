@@ -25,6 +25,7 @@ public class Admin extends Controller {
         render(posts);
     }
 
+
     public static void newPost(Post post) {
         List<GalleryIcon> teasers = GalleryIcon.find("byType", "teaser").fetch();
         List<GalleryIcon> headers = GalleryIcon.find("byType", "header").fetch();
@@ -42,27 +43,35 @@ public class Admin extends Controller {
         }
         post.publishedAt = new Date();
         post.modifiedAt = new Date();
-        
-        if(params._contains("teaser-icon-id")){
+
+        if (params._contains("teaser-icon-id")) {
             try {
                 Long teaserId = Long.valueOf(params.get("teaser-icon-id"));
                 GalleryIcon gt = GalleryIcon.findById(Long.valueOf(teaserId));
                 if (gt != null && gt.graphic.exists()) {
                     post.teaserIcon = gt.graphic;
-                }                
+                }
             } catch (Exception e) {
             }
         }
-        
-        if(params._contains("header-icon-id")){
+
+        if (params._contains("header-icon-id")) {
             try {
                 Long headerId = Long.valueOf(params.get("header-icon-id"));
                 GalleryIcon gt = GalleryIcon.findById(headerId);
                 if (gt != null && gt.graphic.exists()) {
                     post.icon = gt.graphic;
-                }                
+                }
             } catch (Exception e) {
             }
+        }
+
+        if (post.teaserIconUrl != null && !post.teaserIconUrl.isEmpty()) {
+            GalleryIcon.createFromUrl(post.teaserIconUrl, "teaser");
+        }
+
+        if (post.iconUrl != null && !post.iconUrl.isEmpty()) {
+            GalleryIcon.createFromUrl(post.iconUrl, "header");
         }
 
         post.save();
@@ -74,7 +83,7 @@ public class Admin extends Controller {
     public static void updatePost(Long id) {
         Post post = Post.findById(id);
         notFoundIfNull(post);
-        
+
         if (request.current().method.equals("GET")) {
             render(post);
         }
@@ -86,6 +95,13 @@ public class Admin extends Controller {
             params.flash();
             validation.keep();
             render(post);
+        }
+
+        if (post.teaserIconUrl != null && !post.teaserIconUrl.isEmpty()) {
+            GalleryIcon.createFromUrl(post.teaserIconUrl, "teaser");
+        }
+        if (post.iconUrl != null && !post.iconUrl.isEmpty()) {
+            GalleryIcon.createFromUrl(post.iconUrl, "header");
         }
 
         post.modifiedAt = new Date();
@@ -148,6 +164,7 @@ public class Admin extends Controller {
         String url = Router.reverse(VirtualFile.open(to));
         renderText(Router.getBaseUrl() + url);
     }
+
     public static void renderGraphicTemplate(Long id) {
         final GalleryIcon gt = GalleryIcon.findById(id);
         if (gt == null)
