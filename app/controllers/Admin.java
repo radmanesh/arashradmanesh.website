@@ -174,4 +174,22 @@ public class Admin extends Controller {
         java.io.InputStream binaryData = gt.graphic.get();
         renderBinary(binaryData);
     }
+
+    public static void setCommentConfirmation(Long id,boolean confirmed){
+        Comment cmt = Comment.findById(id);
+        if(cmt!=null){
+            cmt.confirmed = confirmed;
+            cmt.save();
+            //TODO: reload comments via eldarion
+        }
+    }
+
+    public static void toggleCommentDeletion(Long id,boolean delete){
+        Comment cmt = Comment.findById(id);
+        if(cmt!=null){
+            cmt.deleted= delete;
+            cmt.save();
+            //TODO: reload comments via eldarion
+        }
+    }
 }

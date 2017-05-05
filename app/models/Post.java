@@ -4,11 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 import play.data.validation.URL;
 import play.db.jpa.Blob;
@@ -40,6 +36,9 @@ public class Post extends Model {
     public Date modifiedAt;
 
     public String author;
+
+    @Column(columnDefinition = "tinyint(1) default 0")
+    public Boolean isPublished = Boolean.FALSE;
 
     @OneToMany(mappedBy = "post")
     public List<Comment> comments;

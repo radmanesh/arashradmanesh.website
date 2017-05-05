@@ -28,6 +28,8 @@ public class Publication extends Model {
 
     public Double price;
 
+    public Double minPrice = DefaultConstants.DEFAULT_MIN_PRICE;
+
     @ManyToMany(cascade = CascadeType.PERSIST)
     public Set<Tag> tags;
 

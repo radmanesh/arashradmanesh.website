@@ -14,7 +14,7 @@
 
   #{get 'moreStyles' /}
 
-  <link rel="stylesheet" media="screen" href="@{'public/css/styles.css'}">
+  <link rel="stylesheet" media="screen" href="@{'public/css/arashradmanesh.frontend.min.css'}">
   
   <link rel="shortcut icon" type="image/png" href="@{'public/img/favicon.png'}">
   
@@ -25,10 +25,13 @@
 <header id="header">
 	<div id="head" class="parallax" parallax-speed="1">
 		<h1 id="logo" class="text-center">
-			<img class="img-circle" src="@{'public/img/logo2.png'}" alt="">
+			*{<img class="img-circle" src="@{'public/img/logo2.png'}" alt="">}*
 			<!-- <span class="title">وبلاگ آرش رادمنش</span> -->
-            <img src="../assets/images/logo-title.png" alt="" style="max-width: 270px; height: auto;">
-			<span class="tagline"> انگیزهٔ یک آفرینندهٔ خلاق از تمایلش به کسب نتیجه حاصل می‌شود، نه به میل سرکوب دیگران.  </span>
+            <img class="title" src="@{'/public/img/logo-title.png'}" alt="" style="max-width: 270px; height: auto;">
+			<span class="tagline">
+                        انگیزهٔ یک آفرینندهٔ خلاق از تمایلش به کسب نتیجه حاصل می‌شود، نه به میل سرکوب دیگران.
+                <a href="mailto:arash.radmanesh@gmail.com">arash.radmanesh@gmail.com</a>
+            </span>
 		</h1>
 	</div>
 
