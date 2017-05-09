@@ -1,0 +1,16 @@
+#{field (_bName? (_bName +'.') : '') + _name}
+<div class="form-group ${_groupClass} #{ifError field.name}has-error#{/ifError}" id="${field.id}_group">
+  <label class="control-label" for="${field.id}">&{field.name}</label>
+  %{
+    formatPattern = 'yyyy-MM-dd'; 
+    if(_format!=null && _format!=""){
+      formatPattern = _format;
+    }
+  }%
+  <input name="${field.name}" type="date" class="form-control ${_inputClass}" id="${field.id}"
+      value="${_value?.format(formatPattern)}" ${_optionalAttr} #{ifError field.name}aria-describedby="${field.id}errorStatus"#{/ifError} />
+  #{ifError field.name}
+    <span class="help-block" id="${field.id}errorStatus">${field.error.raw()}</span>
+  #{/ifError}
+</div>
+#{/field}

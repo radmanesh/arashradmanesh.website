@@ -50,6 +50,7 @@ public class Comment extends Model {
     public String website;
 
     public Date publishedAt;
+
     public Date modifiedAt;
 
     public Comment(Long postId) {

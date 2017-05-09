@@ -25,6 +25,7 @@
                 <label for="post_content">&{'post.content'}</label>
                 <textarea class="form-control summernote" name="post.content">${post?.content}</textarea>
             </div>
+            #{fields.checkField bName:'post',name:'title' , value:post?.published /}
             <button type="submit" class="btn btn-primary">&{'blog.save'}</button>
         </fieldset>
     #{/form}

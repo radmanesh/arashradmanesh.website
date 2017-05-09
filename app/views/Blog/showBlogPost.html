@@ -1,5 +1,5 @@
 #{extends 'main2.html' /}
-#{set 'title'} &{blog.show.post.page.title} #{/set}
+#{set 'title'} &{'blog.show.post.page.title'} #{/set}
 
 <div class="row topspace">
   <div class="col-sm-8 col-sm-offset-2">
@@ -32,11 +32,11 @@
 <div class="row">
   <div class="col-sm-8 col-sm-offset-2">
 
-    <div id="children">
-      <h3 class="children-title">${post?.comments?.size()} &{'post.children'}</h3>
-      <a href="#comment-form" class="leave-comment">&{'post.leave-comment'}</a>
+    <div id="comments">
+      <h3 class="comments-title">${post?.countConfirmedComments()==0 ? play.i18n.Messages.get('post.noComments'):post?.countConfirmedComments() + play.i18n.Messages.get('post.children') } </h3>
+      <a href="#respond" class="leave-comment">&{'post.leave-comment'}</a>
 
-      <ol class="children-list">
+      <ol class="comments-list">
       #{list post?.comments}
         #{blog.comment comment:_ /}
       #{/list}
@@ -95,7 +95,7 @@
 
 <!-- /.row -->
 <div class="modal fade" id="replyCommentModal" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog" role="document">
     <div class="modal-content">
       <form role="form" class="form-normal" action="@{Blog.replyComment()}">
         <input id="modalCommentIdInput" type="hidden" name="commentId" value='-1'/>

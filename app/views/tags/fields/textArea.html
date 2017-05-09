@@ -1,0 +1,11 @@
+#{field (_bName==null ? '' : _bName+'.') + _name}
+<div class="form-group ${_groupClass} #{ifError field.name}has-error#{/ifError}" id="${field.id}_group">
+    <label>&{_label==null ? field.name : _label}</label>
+    <textarea class="form-control ${_inputClass}" name="${field.name}" id="${field.id}"
+           ${_optionalAttr} rows="${_rows==null ? '3' : _rows}"  #{ifError field.name}aria-describedby="${field.id}errorStatus"#{/ifError}>${_value?.raw()}
+    </textarea>
+    #{ifError field.name}
+      <span class="help-block" id="${field.id}errorStatus">${field.error.raw()}</span>
+    #{/ifError}
+</div>
+#{/field}

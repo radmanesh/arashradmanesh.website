@@ -1,0 +1,8 @@
+#{field (_bName? (_bName +'.') : '') + _name}
+<div class="checkbox">
+  <label>
+    <input type="checkbox" name="${field.name}"  ${_optionalAttr} id="${field.id}" ${_valueName? 'value="'+valueName+'"' : ''} ${_value ? 'checked="true"'.raw():''}>&{field.name}
+    <input type="hidden" name="${field.name}" value="false">
+  </label>
+</div>
+#{/field}

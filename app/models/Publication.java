@@ -4,13 +4,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 
+import play.data.validation.Min;
 import play.db.jpa.Blob;
 import play.db.jpa.Model;
+import utils.DefaultConstants;
 
 @Entity
 public class Publication extends Model {
@@ -26,12 +25,20 @@ public class Publication extends Model {
 
     public Date publishedAt;
 
-    public Double price;
+    @Min(DefaultConstants.DEFAULT_MIN_PRICE)
+    public Integer price;
 
-    public Double minPrice = DefaultConstants.DEFAULT_MIN_PRICE;
+    @Min(DefaultConstants.DEFAULT_MIN_PRICE)
+    public Integer minPrice = DefaultConstants.DEFAULT_MIN_PRICE;
 
     @ManyToMany(cascade = CascadeType.PERSIST)
     public Set<Tag> tags;
+
+    @Column(columnDefinition = "tinyint(1) default 0")
+    public Boolean freeDownload = Boolean.FALSE;
+
+    @Column(columnDefinition = "tinyint(1) default 0")
+    public Boolean fixedPrice = Boolean.FALSE;
 
     public Publication() {
         publishedAt = new Date();

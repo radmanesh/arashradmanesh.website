@@ -22,7 +22,7 @@ import play.vfs.VirtualFile;
 public class Blog extends Controller {
 
     public static void index() {
-        List<Post> posts = Post.all().fetch();
+        List<Post> posts = Post.find("isPublished",true).fetch();
         render(posts);
     }
 

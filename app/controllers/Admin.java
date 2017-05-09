@@ -175,21 +175,26 @@ public class Admin extends Controller {
         renderBinary(binaryData);
     }
 
-    public static void setCommentConfirmation(Long id,boolean confirmed){
+    public static void setCommentConfirmation(Long id,boolean value){
         Comment cmt = Comment.findById(id);
         if(cmt!=null){
-            cmt.confirmed = confirmed;
+            cmt.confirmed = value;
             cmt.save();
             //TODO: reload comments via eldarion
+            showBlogPost(cmt.getPost().id);
         }
+        index();
     }
 
-    public static void toggleCommentDeletion(Long id,boolean delete){
+    public static void setCommentDeletion(Long id,boolean value){
         Comment cmt = Comment.findById(id);
         if(cmt!=null){
-            cmt.deleted= delete;
+            Long postId = cmt.getPost().id; 
+            cmt.deleted= value;
             cmt.save();
             //TODO: reload comments via eldarion
+            showBlogPost(postId);
         }
+        index();
     }
 }

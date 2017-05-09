@@ -18,12 +18,12 @@
                       type="hidden"
                       role="uploadcare-uploader"
                       data-public-key="da6e9343b4ad6b89adc7"
-                      data-tabs="file camera url facebook gdrive gphotos dropbox instagram evernote flickr skydrive localhistory"
+                      data-tabs="file camera url facebook gdrive gphotos dropbox instagram evernote flickr skydrive favorites"
                       data-image-shrink=""
                       data-images-only="true"
                       data-preview-step="true"
                       data-clearable="true"
-                      data-multiple="false"
+                      data-multiple="true"
                       data-system-dialog="false"
                       data-crop="300x300 minimum"
               />
@@ -43,7 +43,7 @@
                       type="hidden"
                       role="uploadcare-uploader"
                       data-public-key="da6e9343b4ad6b89adc7"
-                      data-tabs="file camera url facebook gdrive gphotos dropbox instagram evernote flickr skydrive localhistory"
+                      data-tabs="file camera url facebook gdrive gphotos dropbox instagram evernote flickr skydrive favorites"
                       data-image-shrink=""
                       data-images-only="true"
                       data-preview-step="true"
@@ -64,6 +64,9 @@
                 <label for="post_content">&{'post.content'}</label>
                 <textarea class="form-control summernote" name="post.content">${post?.content}</textarea>
             </div>
+
+            #{fields.checkField bName:'post',name:'isPublished' , value:post?.isPublished /}
+
             <button type="submit" class="btn btn-primary">&{'blog.save'}</button>
         </fieldset>
     #{/form}
@@ -81,123 +84,30 @@
     <!-- Uploadcare widget -->
     <script>
         UPLOADCARE_PUBLIC_KEY = 'da6e9343b4ad6b89adc7';
-        UPLOADCARE_TABS = 'file camera url facebook gdrive gphotos dropbox instagram evernote localhistory';
+        UPLOADCARE_TABS = 'file camera url facebook gdrive gphotos dropbox instagram evernote favorites';
         UPLOADCARE_PREVIEW_STEP = true;
         UPLOADCARE_CLEARABLE = true;
     </script>
     <script charset="utf-8" src="https://ucarecdn.com/libs/widget/2.10.3/uploadcare.full.min.js"></script>
     <script>
-      uploadcare.registerTab('localhistory', function(container, button, dialogApi, settings, name) {
-        function loadItems() {
-          // Format: UUID isImage size filename
-          var items = localStorage.getItem(localKey);
-          if ( ! items) {
-            return [];
-          }
-          items = items.split("\n");
-          for (var i = 0; i < items.length; i++) {
-            var v = items[i].split(' ');
-            v.splice(3, v.length, v.slice(3, v.length).join(' '));
-            v[1] = !!parseInt(v[1]);
-            v[2] = parseInt(v[2]);
-            items[i] = v;
-          }
-          return items;
+        function favoriteFiles(container, button, dialogApi, settings) {
+            $.each(settings.favoriteFiles, function(i, uuid) {
+                container.append($('<img>', {
+                        'class': 'favorite-files-image',
+                        'src': settings.cdnBase + '/' + uuid + '/-/scale_crop/280x280/center/',
+                    })
+                    .on('click', function(e) {
+                        dialogApi.addFiles([uploadcare.fileFrom('uploaded', uuid, settings)])
+                    })
+                );
+            });
         }
-        function saveItems(items) {
-          items = items.slice(0, 100);
-          for (var i = 0; i < items.length; i++) {
-            var v = items[i].slice();
-            v[1] = 0 + v[1];	// bool → int
-            items[i] = v.join(" ");
-          }
-          localStorage.setItem(localKey, items.join("\n"));
-        }
-        function addItem(fileInfo) {
-          var items = loadItems();
-          items = $.grep(items, function(v) {
-            return v[0] !== fileInfo.uuid;
-          });
-          var item = [fileInfo.uuid, fileInfo.isImage, fileInfo.size, fileInfo.name];
-          items.unshift(item);
-          saveItems(items);
-        }
-        function removeItem(item) {
-          var items = loadItems();
-          items = $.grep(items, function(v) {
-            return v[0] !== item[0];
-          });
-          saveItems(items);
-        }
-        function makeItem(data) {
-          var html = $('<div class="uploadcare-file-item"></div>').append([
-            $('<div class="uploadcare-file-item__preview"></div>').append(
-                    data[1]
-                            ?
-                            $('<img/>', {
-                              src: settings.cdnBase + "/" + data[0] + "/-/quality/lightest/" + (
-                                      settings.imagesOnly
-                                              ? "-/preview/340x340/"
-                                              : "-/scale_crop/110x110/center/"
-                              )
-                            })
-                            :
-                            $('<div class="uploadcare-file-icon"></div>')
-            ),
-            $('<div class="uploadcare-file-item__name"></div>').text(data[3]),
-            $('<div class="uploadcare-file-item__size"></div>').text(uc.utils.readableFileSize(data[2])),
-            $('<div class="uploadcare-file-item__remove"></div>').append(
-                    $('<div class="uploadcare-remove"></div>')
-                            .on('click', function() {
-                              html.remove();
-                              removeItem(data);
-                            })
-            )
-          ]).on('click', function(e) {
-            dialogApi.addFiles('uploaded', [data[0]]);
-            e.preventDefault();
-          });
-          return html;
-        }
-        function populate(container) {
-          var items = loadItems();
-          for (var i = items.length - 1; i >= 0; i--) {
-            var item = items[i];
-            if (settings.imagesOnly && ! item[1]) {
-              continue;
-            }
-            container.prepend(makeItem(item));
-          }
-        }
-        var localStorage = window.localStorage;
-        var localKey = "uploadcare_" + settings.publicKey;
-        var $ = uploadcare.jQuery;
-        var uc;
-        if ( ! localStorage) {
-          button.hide();
-          return;
-        }
-        uploadcare.plugin(function(uploadcare) {
-          uc = uploadcare;
-        });
-        dialogApi.fileColl.onAdd.add(function(file) {
-          file.done(function(fileInfo) {
-            addItem(fileInfo);
-          })
-        });
-        populate($('<div class="uploadcare-file-list"></div>')
-                .toggleClass('uploadcare-file-list_table', !settings.imagesOnly)
-                .toggleClass('uploadcare-file-list_tiles', settings.imagesOnly)
-                .appendTo($('<div class="uploadcare-dialog-padding">\
-      <div class="uploadcare-dialog-title">Previous uploaded files</div>\
-    </div>')
-                        .appendTo(container)));
-      });
-      UPLOADCARE_LOCALE_TRANSLATIONS = {
-        dialog: {tabs: {names: {
-          localhistory: 'History'
-        }}}
-      };
+        uploadcare.registerTab('favorites',  favoriteFiles);
+        UPLOADCARE_LOCALE_TRANSLATIONS = {
+            dialog: {tabs: {names: {
+                favorites: 'Faves'
+            }}}
+        };
     </script>
 <!--
 

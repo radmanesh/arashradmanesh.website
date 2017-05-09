@@ -1,11 +1,3 @@
-/*******************************************************************************
- *              arashradmanesh.frontend (version 1.2.0)
- *      Author: Arman Radmanesh (http://github.com/radmanesh)
- *  Created on: May 01,2017
- *     Project: arashradmanesh.frontend
- *   Copyright: Unlicensed.
- *******************************************************************************/
-
 /*==========================================================================
 + ArashRadmanesh.frontend
 ==========================================================================*/
@@ -16,101 +8,69 @@
 /* Iranian Sans Web font as 'Iranian Sans' */
 @font-face {
   font-family: 'Iranian Sans';
-  src: url('../../assets/fonts/iransans.eot');
+  src: url('../fonts/iransans.eot');
   /* for IE */
-  src: local('Iranian Sans'), url('../../assets/fonts/iransans.woff') format('woff'), url('../../assets/fonts/iransans.ttf') format('truetype'), url('../../assets/fonts/iransans.svgz') format('svg'), url('../../assets/fonts/iransans.svg') format('svg');
+  src: local('Iranian Sans'), url('../fonts/iransans.woff') format('woff'), url('../fonts/iransans.ttf') format('truetype'), url('../fonts/iransans.svgz') format('svg'), url('../fonts/iransans.svg') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'Iranian Sans';
-  src: local('Iranian Sans'), url('../../assets/fonts/iransansb.ttf') format('truetype');
+  src: local('Iranian Sans'), url('../fonts/iransansb.ttf') format('truetype');
   font-weight: bold;
   font-style: normal;
 }
 /* XB Roya Web font as 'XB Roya' */
 @font-face {
   font-family: 'XB Roya';
-  src: local('XB Roya'), local('Roya'), url('../../assets/fonts/xbroya.woff') format('woff'), url('../../assets/fonts/xbroya.ttf') format('truetype'), url('../../assets/fonts/xbroya.svgz') format('svg'), url('../../assets/fonts/xbroya.svg') format('svg');
-  src: url('../../assets/fonts/xbroya.eot');
+  src: local('XB Roya'), local('Roya'), url('../fonts/xbroya.woff') format('woff'), url('../fonts/xbroya.ttf') format('truetype'), url('../fonts/xbroya.svgz') format('svg'), url('../fonts/xbroya.svg') format('svg');
+  src: url('../fonts/xbroya.eot');
   /* for IE */
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'XB Roya';
-  src: url('../../assets/fonts/XBRoyaBd.ttf') format('truetype');
+  src: url('../fonts/XBRoyaBd.ttf') format('truetype');
   font-weight: bold;
   font-style: normal;
 }
 @font-face {
   font-family: 'XB Roya';
-  src: url('../../assets/fonts/XBRoyaBdIt.ttf') format('truetype');
+  src: url('../fonts/XBRoyaBdIt.ttf') format('truetype');
   font-weight: bold;
   font-style: italic;
 }
 @font-face {
   font-family: 'XB Roya';
-  src: url('../../assets/fonts/XBRoyaIt.ttf') format('truetype');
+  src: url('../fonts/XBRoyaIt.ttf') format('truetype');
   font-weight: normal;
   font-style: italic;
-}
-/* XB Roya Web font as 'XB Roya' */
-@font-face {
-  font-family: 'XB Roya';
-  src: local('XB Roya'), local('Roya'), url('/public/fonts/xbroya.woff') format('woff'), url('/public/fonts/xbroya.ttf') format('truetype'), url('/public/fonts/xbroya.svg') format('svg');
-  src: url('/public/fonts/xbroya.eot');
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'XB Roya';
-  src: url('/public/fonts/XBRoyaBd.ttf') format('truetype');
-  font-weight: bold;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'XB Roya';
-  src: url('/public/fonts/XBRoyaBdIt.ttf') format('truetype');
-  font-weight: bold;
-  font-style: italic;
-}
-@font-face {
-  font-family: 'XB Roya';
-  src: url('/public/fonts/XBRoyaIt.ttf') format('truetype');
-  font-weight: normal;
-  font-style: italic;
-}
-@font-face {
-  font-family: 'B Roya';
-  src: url('/public/fonts/2roya.otf') format('opentype');
-  font-weight: normal;
-  font-style: normal;
 }
 /* XM Traffic Web font as 'Traffic' */
 @font-face {
   font-family: 'Traffic';
-  src: local('Traffic'), local('XM Traffic'), url('/public/fonts/XMTraffic.woff') format('woff'), url('/public/fonts/XMTraffic.ttf') format('truetype');
-  src: url('/public/fonts/XMTraffic.eot');
+  src: local('Traffic'), local('XM Traffic'), url('../fonts/XMTraffic.woff') format('woff'), url('../fonts/XMTraffic.ttf') format('truetype');
+  src: url('../fonts/XMTraffic.eot');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'Traffic';
-  src: local('Traffic'), local('XM Traffic'), url('/public/fonts/XMTrafficBd.woff') format('woff'), url('/public/fonts/XMTrafficBd.ttf') format('truetype');
-  src: url('/public/fonts/XMTrafficBd.eot');
+  src: local('Traffic'), local('XM Traffic'), url('../fonts/XMTrafficBd.woff') format('woff'), url('../fonts/XMTrafficBd.ttf') format('truetype');
+  src: url('../fonts/XMTrafficBd.eot');
   font-weight: bold;
   font-style: normal;
 }
 @font-face {
   font-family: 'Traffic';
-  src: url('/public/fonts/XM Traffic It.ttf') format('truetype');
+  src: url('../fonts/XM Traffic It.ttf') format('truetype');
   font-weight: normal;
   font-style: italic;
 }
 @font-face {
   font-family: 'Traffic';
-  src: url('/public/fonts/XM Traffic BdIt.ttf') format('truetype');
+  src: url('../fonts/XM Traffic BdIt.ttf') format('truetype');
   font-weight: bold;
   font-style: italic;
 }
@@ -119,8 +79,8 @@
  */
 @font-face {
   font-family: 'Homa';
-  src: local('BHoma'), local('Homa'), url('/public/fonts/BHoma.woff') format('woff'), url('/public/fonts/BHoma.ttf') format('truetype');
-  src: url('/public/fonts/BHoma.eot');
+  src: local('BHoma'), local('Homa'), url('../fonts/BHoma.woff') format('woff'), url('../fonts/BHoma.ttf') format('truetype');
+  src: url('../fonts/BHoma.eot');
   font-weight: normal;
   font-style: normal;
 }
@@ -227,6 +187,10 @@ a:hover {
   max-width: 100%;
   height: auto;
 }
+.modal-dialog {
+  left: auto;
+  right: auto;
+}
 /*********************************************************************
 
 
@@ -235,10 +199,10 @@ a:hover {
 
 **********************************************************************/
 #head {
-  background: #f4f4f4 url(../../assets/images/bg_head.jpg) top center;
+  background: #FFFFFF url(../img/bg_head.jpg) top center no-repeat;
   background-size: cover;
   color: #7C7C7C;
-  padding: 30px 0 35px 0;
+  padding: 90px 0;
 }
 #head img.img-circle {
   display: block;
@@ -249,18 +213,14 @@ a:hover {
   margin: 0 auto;
 }
 #head .title {
-  font-family: Tahoma, Alice, Georgia, serif;
+  font-family: "Homa", Tahoma, Alice, Georgia, serif;
   font-size: 49px;
   font-size: 3.0625rem;
+  margin: 70px 0 20px 0;
 }
 #head .title a {
   text-decoration: none;
   color: #000000;
-}
-#head .logo-title {
-  background-image: url(../../assets/images/logo-title.png);
-  max-width: 264px;
-  height: auto;
 }
 #head .tagline {
   display: block;
@@ -319,7 +279,7 @@ a:hover {
   -moz-background-clip: padding;
   border-radius: 0;
   background-clip: padding-box;
-  font-family: "Open sans", Helvetica, Arial, sans-serif;
+  font-family: "Iranian Sans", Helvetica, Arial, sans-serif;
   font-weight: 300;
   text-transform: uppercase;
 }
@@ -427,7 +387,7 @@ img {
   font-size: 0.75rem;
   text-decoration: none;
   text-transform: uppercase;
-  font-family: Times, Helvetica, Arial, sans-serif;
+  font-family: "Iranian Sans", Helvetica, Arial, sans-serif;
   color: #333;
   -webkit-border-radius: 0px;
   -webkit-background-clip: padding-box;
@@ -498,7 +458,7 @@ img {
 }
 .featured h3 {
   font-weight: bold;
-  font-family: Times, Helvetica, Arial, sans-serif;
+  font-family: "Iranian Sans", Helvetica, Arial, sans-serif;
   font-size: 24px;
   font-size: 1.5rem;
   text-transform: uppercase;

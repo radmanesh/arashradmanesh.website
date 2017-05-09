@@ -1,0 +1,13 @@
+#{field (_bName? (_bName +'.') : '') + _name}
+<div id="${field.id}_group" class="form-group ${_groupClass} #{ifError field.name}has-error#{/ifError}">
+  <label>&{field.name}</label>
+  <select id="${field.id}" name="${field.name}.id" class="form-control ${_inputClass}"  #{ifError field.name}aria-describedby="${field.id}errorStatus"#{/ifError}>
+    #{list _values}
+      <option value="${_.ordinal()}" ${_selected?.equals(_) ? 'selected="selected"' : ''} >&{_.toString()}</option>
+    #{/list}
+  </select>
+  #{ifError field.name}
+    <span class="help-block"  id="${field.id}errorStatus">${field.error}</span>
+  #{/ifError}
+</div>
+#{/field}

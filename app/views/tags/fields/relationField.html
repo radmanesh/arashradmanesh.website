@@ -1,0 +1,13 @@
+#{field (_bName? (_bName +'.') : '') + _name}
+<div id="${field.id}_group" class="form-group ${_groupClass} #{ifError field.name}has-error#{/ifError}">
+  <label>&{field.name}</label>
+  <select multiple id="${field.id}" name="${field.name}.id" class="form-control ${_inputClass}">
+    #{list _values}
+      <option value="${_.id}" ${_selected.contains(_) ? 'selected' : ''} >&{_.toString()}</option>
+    #{/list}
+  </select>
+  #{ifError field.name}
+    <span class="help-block">${field.error}</span>
+  #{/ifError}
+</div>
+#{/field}

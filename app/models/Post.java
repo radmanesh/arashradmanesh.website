@@ -6,9 +6,11 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import play.Logger;
 import play.data.validation.URL;
 import play.db.jpa.Blob;
 import play.db.jpa.Model;
+import utils.Utils;
 
 @Entity
 public class Post extends Model {
@@ -55,6 +57,33 @@ public class Post extends Model {
     public Post tagItWith(String name) {
         tags.add(Tag.findOrCreateByName(name));
         return this;
+    }
+
+    public String createExcerpt(){
+        if(Utils.isEmptyString(excerpt)){
+            if(content!=null)
+                if(content.length()<101)
+                    return content;
+                else
+                    return content.substring(0,100);
+            else
+                return "";
+
+        }else{
+            return excerpt;
+        }
+    }
+
+    public int countConfirmedComments(){
+        int count = 0;
+        try {
+            long c = Comment.count("post=?1 and confirmed=?2 and deleted=?3",this,true,false);
+            if(c>0)
+                count = (int)c;
+        }catch (Exception e){
+            Logger.warn(e,"countConfirmedComments");
+        }
+        return count;
     }
 
     public static List<Post> findTaggedWith(String tag) {

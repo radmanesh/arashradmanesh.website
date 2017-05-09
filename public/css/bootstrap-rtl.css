@@ -5,44 +5,81 @@
 /* Iranian Sans Web font as 'Iranian Sans' */
 @font-face {
   font-family: 'Iranian Sans';
-  src: url('../../assets/fonts/iransans.eot');
+  src: url('../fonts/iransans.eot');
   /* for IE */
-  src: local('Iranian Sans'), url('../../assets/fonts/iransans.woff') format('woff'), url('../../assets/fonts/iransans.ttf') format('truetype'), url('../../assets/fonts/iransans.svgz') format('svg'), url('../../assets/fonts/iransans.svg') format('svg');
+  src: local('Iranian Sans'), url('../fonts/iransans.woff') format('woff'), url('../fonts/iransans.ttf') format('truetype'), url('../fonts/iransans.svgz') format('svg'), url('../fonts/iransans.svg') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'Iranian Sans';
-  src: local('Iranian Sans'), url('../../assets/fonts/iransansb.ttf') format('truetype');
+  src: local('Iranian Sans'), url('../fonts/iransansb.ttf') format('truetype');
   font-weight: bold;
   font-style: normal;
 }
 /* XB Roya Web font as 'XB Roya' */
 @font-face {
   font-family: 'XB Roya';
-  src: local('XB Roya'), local('Roya'), url('../../assets/fonts/xbroya.woff') format('woff'), url('../../assets/fonts/xbroya.ttf') format('truetype'), url('../../assets/fonts/xbroya.svgz') format('svg'), url('../../assets/fonts/xbroya.svg') format('svg');
-  src: url('../../assets/fonts/xbroya.eot');
+  src: local('XB Roya'), local('Roya'), url('../fonts/xbroya.woff') format('woff'), url('../fonts/xbroya.ttf') format('truetype'), url('../fonts/xbroya.svgz') format('svg'), url('../fonts/xbroya.svg') format('svg');
+  src: url('../fonts/xbroya.eot');
   /* for IE */
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'XB Roya';
-  src: url('../../assets/fonts/XBRoyaBd.ttf') format('truetype');
+  src: url('../fonts/XBRoyaBd.ttf') format('truetype');
   font-weight: bold;
   font-style: normal;
 }
 @font-face {
   font-family: 'XB Roya';
-  src: url('../../assets/fonts/XBRoyaBdIt.ttf') format('truetype');
+  src: url('../fonts/XBRoyaBdIt.ttf') format('truetype');
   font-weight: bold;
   font-style: italic;
 }
 @font-face {
   font-family: 'XB Roya';
-  src: url('../../assets/fonts/XBRoyaIt.ttf') format('truetype');
+  src: url('../fonts/XBRoyaIt.ttf') format('truetype');
   font-weight: normal;
   font-style: italic;
+}
+/* XM Traffic Web font as 'Traffic' */
+@font-face {
+  font-family: 'Traffic';
+  src: local('Traffic'), local('XM Traffic'), url('../fonts/XMTraffic.woff') format('woff'), url('../fonts/XMTraffic.ttf') format('truetype');
+  src: url('../fonts/XMTraffic.eot');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Traffic';
+  src: local('Traffic'), local('XM Traffic'), url('../fonts/XMTrafficBd.woff') format('woff'), url('../fonts/XMTrafficBd.ttf') format('truetype');
+  src: url('../fonts/XMTrafficBd.eot');
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Traffic';
+  src: url('../fonts/XM Traffic It.ttf') format('truetype');
+  font-weight: normal;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Traffic';
+  src: url('../fonts/XM Traffic BdIt.ttf') format('truetype');
+  font-weight: bold;
+  font-style: italic;
+}
+/**
+ Home Font
+ */
+@font-face {
+  font-family: 'Homa';
+  src: local('BHoma'), local('Homa'), url('../fonts/BHoma.woff') format('woff'), url('../fonts/BHoma.ttf') format('truetype');
+  src: url('../fonts/BHoma.eot');
+  font-weight: normal;
+  font-style: normal;
 }
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
 html {
@@ -298,8 +335,8 @@ th {
 }
 @font-face {
   font-family: 'Glyphicons Halflings';
-  src: url('../../fonts/glyphicons-halflings-regular.eot');
-  src: url('../../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+  src: url('../fonts/glyphicons-halflings-regular.eot');
+  src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
 .glyphicon {
   position: relative;
