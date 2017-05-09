@@ -11,6 +11,6 @@ package utils;
  */
 public interface DefaultConstants {
 
-    Integer DEFAULT_MIN_PRICE = 1000;
+    double DEFAULT_MIN_PRICE = 1000;
 
 }

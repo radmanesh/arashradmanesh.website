@@ -29,7 +29,7 @@ public class Publication extends Model {
     public Integer price;
 
     @Min(DefaultConstants.DEFAULT_MIN_PRICE)
-    public Integer minPrice = DefaultConstants.DEFAULT_MIN_PRICE;
+    public Integer minPrice = new Integer((int)DefaultConstants.DEFAULT_MIN_PRICE);
 
     @ManyToMany(cascade = CascadeType.PERSIST)
     public Set<Tag> tags;
