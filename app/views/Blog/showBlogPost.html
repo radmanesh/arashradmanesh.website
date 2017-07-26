@@ -2,8 +2,42 @@
 #{set 'title'} &{'blog.show.post.page.title'} #{/set}
 
 <div class="row topspace">
-  <div class="col-sm-8 col-sm-offset-2">
 
+  <!-- Sidebar -->
+  <aside class="col-sm-4 sidebar sidebar-right">
+
+    <div class="widget">
+      <h4>پست‌های مرتبط</h4>
+      <ul class="list-unstyled">
+      #{list post?.relatedPosts()}
+        <li><a href="">${_?.title}</a></li>
+      #{/list}
+      </ul>
+      <br>
+
+      <h4>&{'blog.recentPosts'}</h4>
+      <ul class="list-unstyled">
+        #{list models.Post.findByType(models.PostType.BLOG,10)}
+          <li><a href="@{showBlogPost(_?.id)}">${_?.title}</a></li>
+        #{/list}
+      </ul>
+
+      <ul class="list-inline">
+      #{list models.Tag.getCloud()}
+        <li>
+          <a href="@{tagged(_?.get('tag'))}" class="btn-label"><span class="label label-info" style="font-size: ${_?.get('pound')+14}"> ${_?.get('tag')} </span></a>
+        </li>
+      #{/list}
+      </ul>
+
+    </div>
+
+  </aside>
+  <!-- /Sidebar -->
+
+
+  <div class="col-sm-8 maincontent">
+    <!-- Post-->
     <article class="post">
       <header class="entry-header">
         <div class="entry-meta">
@@ -12,7 +46,7 @@
         </div>
         <h1 class="entry-title">
           <a href="@{Blog.showBlogPost(post?.id)}" rel="bookmark">${post?.title}</a>
-          <a href="@{Admin.updatePost(post?.id)}" class="btn btn-default pull-right">&{'blog.post.edit'}</a>
+          <a href="@{Admin.updatePost(post?.id)}" class="btn btn-default pull-left">&{'blog.post.edit'}</a>
         </h1>
 
       </header>
@@ -20,74 +54,111 @@
         <p>
           <img src="@{Blog.getPostIcon(post?.id)}" alt="Post icon"></img>
         </p>
-      ${post?.content?.raw()}
+        ${post?.content?.raw()}
       </div>
+
+      <div class="entry-labels">
+        <ul class="list-inline pull-left">
+          #{list post?.tags}
+            <li><a href="@{tagged(_?.name)}" class="btn-label"><span class="label label-info">${_?.name}</span></a></li>
+          #{/list}
+        </ul>
+      </div>
+      <!-- ./entry-labels -->
+
+      <div class="clearfix"></div>
+      #{if post?.attachments?.size()>0}
+        <div class="entry-attachments">
+          <h4>پیوست‌ها</h4>
+          <ul class="list-unstyled attachments-list" style="direction: ltr ">
+            #{list post?.attachments}
+              <li class="attachments-list-item" >
+                <div class="attachment-item">
+                  <span class="attachment-name">
+                    ${_?.fileName}
+                  </span>
+                  <span class="attachment-size">
+                    <em>(${_?.file?.file?.length()?.formatSize()})</em>
+                  </span>
+                  <a href="@{Blog.downloadAttachment(_?.id)}" target="_blank" class="btn btn-xs btn-link"><i class="fa fa-cloud-download"></i></a>
+                </div>
+              </li>
+            #{/list}
+          </ul>
+        </div>
+        <!-- ./entry-attachments -->
+      #{/if}
+
+
+      <div id="comments">
+        <h3 class="comments-title">${post?.countConfirmedComments()==0 ? play.i18n.Messages.get('post.noComments'):post?.countConfirmedComments().format() + play.i18n.Messages.get('post.children') } </h3>
+        <a href="#respond" class="leave-comment">&{'post.leave-comment'}</a>
+
+        <ol class="comments-list">
+        #{list post?.comments}
+        #{blog.comment comment:_ /}
+      #{/list}
+        </ol>
+
+        <div class="clearfix"></div>
+
+        <nav id="comment-nav-below" class="comment-navigation clearfix" role="navigation">
+          <div class="nav-content">
+            <div class="nav-previous">&{'post.comments.older.comments'}</div>
+            <div class="nav-next">&{'post.comments.newer.comments'}</div>
+          </div>
+        </nav>
+        <!-- #comment-nav-below -->
+
+
+        <div id="respond">
+          <h3 id="reply-title">&{'post.leave-comment'}</h3>
+          <form action="@{sendComment(post.id)}" method="post" accept-charset="utf-8" id="comment-form" class="">
+          #{if controllers.security.Security.isConnected()}
+            <input type="hidden" name="comment.author" value="${controllers.security.Security.connectedAccount()?.id}">
+          #{/if}
+          #{else}
+            <div class="form-group">
+              <label for="inputName">&{'post.comment.author.label'}</label>
+              <input type="text" name="comment.authorName" class="form-control" id="inputName"
+                     placeholder="&{'post.comment.author.placeholder'}">
+            </div>
+          #{/else}
+            <div class="form-group">
+              <label for="inputEmail">&{'post.comment.email.label'}<i class="text-danger">*</i></label>
+              <input type="email" name="comment.email" class="form-control" id="inputEmail"
+                     placeholder="&{'post.comment.email.placeholder'}">
+            </div>
+            <div class="form-group">
+              <label for="inputWeb">&{'post.comment.website.label'}</label> <input type="url" name="comment.website" class="form-control"
+                                                                                   id="inputWeb" placeholder="&{'post.comment.website.placeholder'}">
+            </div>
+            <div class="form-group">
+              <label for="inputComment">&{'post.comment.content.label'}</label>
+              <textarea name="comment.content" class="form-control" rows="6" placeholder="&{'post.comment.content.placeholder'}"></textarea>
+            </div>
+            <div class="row">
+              <div class="col-md-4 col-md-offset-8 text-right">
+                <button type="submit" class="btn btn-action">&{'general.submit'}</button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <!-- /respond -->
+      </div>
+
     </article>
     <!-- #post-## -->
 
   </div>
+
 </div>
 <!-- /row post  -->
 
 <div class="row">
   <div class="col-sm-8 col-sm-offset-2">
 
-    <div id="comments">
-      <h3 class="comments-title">${post?.countConfirmedComments()==0 ? play.i18n.Messages.get('post.noComments'):post?.countConfirmedComments() + play.i18n.Messages.get('post.children') } </h3>
-      <a href="#respond" class="leave-comment">&{'post.leave-comment'}</a>
 
-      <ol class="comments-list">
-      #{list post?.comments}
-        #{blog.comment comment:_ /}
-      #{/list}
-      </ol>
-
-      <div class="clearfix"></div>
-
-      <nav id="comment-nav-below" class="comment-navigation clearfix" role="navigation">
-        <div class="nav-content">
-          <div class="nav-previous">&{'post.comments.older.comments'}</div>
-          <div class="nav-next">&{'post.comments.newer.comments'}</div>
-        </div>
-      </nav>
-      <!-- #comment-nav-below -->
-
-
-      <div id="respond">
-        <h3 id="reply-title">&{'post.leave-comment'}</h3>
-        <form action="@{sendComment(post.id)}" method="post" accept-charset="utf-8" id="comment-form" class="">
-        #{if controllers.security.Security.isConnected()}
-          <input type="hidden" name="comment.author" value="${controllers.security.Security.connectedAccount()?.id}">
-        #{/if}
-        #{else}
-          <div class="form-group">
-            <label for="inputName">&{'post.comment.author.label'}</label>
-            <input type="text" name="comment.authorName" class="form-control" id="inputName"
-              placeholder="&{'post.comment.author.placeholder'}">
-          </div>
-        #{/else}
-          <div class="form-group">
-            <label for="inputEmail">&{'post.comment.email.label'}<i class="text-danger">*</i></label>
-            <input type="email" name="comment.email" class="form-control" id="inputEmail"
-                   placeholder="&{'post.comment.email.placeholder'}">
-          </div>
-          <div class="form-group">
-            <label for="inputWeb">&{'post.comment.website.label'}</label> <input type="url" name="comment.website" class="form-control"
-                                                         id="inputWeb" placeholder="&{'post.comment.website.placeholder'}">
-          </div>
-          <div class="form-group">
-            <label for="inputComment">&{'post.comment.content.label'}</label>
-            <textarea name="comment.content" class="form-control" rows="6" placeholder="&{'post.comment.content.placeholder'}"></textarea>
-          </div>
-          <div class="row">
-            <div class="col-md-4 col-md-offset-8 text-right">
-              <button type="submit" class="btn btn-action">&{'general.submit'}</button>
-            </div>
-          </div>
-        </form>
-      </div>
-      <!-- /respond -->
-    </div>
   </div>
 </div>
 <!-- /row children -->
@@ -106,12 +177,12 @@
         <div class="modal-body">
           <div class="form-group">
             <label for="inputName">&{'post.reply.modal.authorName'}</label>
-            <input type="text" name="comment.authorName" class="form-control" id="inputName" placeholder="&{'post.reply.modal.author.placeholder'}">
+            <input type="text" name="authorName" class="form-control" id="inputName" placeholder="&{'post.reply.modal.author.placeholder'}">
           </div>
 
           <div class="form-group">
             <label for="inputComment">&{'post.reply.modal.content.label'}</label>
-            <textarea name="comment.content" class="form-control" rows="2" placeholder="&{'post.reply.modal.content.placeholder'}"></textarea>
+            <textarea name="content" class="form-control" rows="2" placeholder="&{'post.reply.modal.content.placeholder'}"></textarea>
           </div>
         </div>
         <div class="modal-footer">

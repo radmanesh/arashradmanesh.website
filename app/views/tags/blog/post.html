@@ -15,7 +15,7 @@
         <img src="@{Blog.getPostIcon(_post?.id)}" alt="Post icon"></img>
       </p>
       ${_post?.createExcerpt()?.raw()}
-      <a href="@{showBlogPost(_post?.id)}" class="more-link">ادامهٔ مطلب&#8230;</a>
+      <a href="@{Blog.showBlogPost(_post?.id)}" class="more-link">ادامهٔ مطلب&#8230;</a>
     </div>
   </article>
 #{/if}
@@ -37,8 +37,18 @@
       <p>
         <img src="@{Blog.getPostIcon(_post?.id)}" alt="Post icon"></img>
       </p>
-    ${_post?.content?.raw()}
+      ${_post?.content?.raw()}
     </div>
+
+    <div class="entry-labels">
+      <ul class="list-inline pull-left">
+        <li><a href="" class="btn-label"><span class="label label-info">برچسب ۱</span></a></li>
+        <li><span class="label label-info">Two</span></li>
+        <li><span class="label label-info">Three</span></li>
+      </ul>
+    </div>
+    <!-- ./entry-labels -->
+
   </article>
   <!-- #post-## -->
 #{/else}

@@ -2,74 +2,74 @@
 #{set 'title'} &{'blog.newPost.title'} #{/set}
 
 #{set 'withSummer'} true #{/set}
+#{set 'chosen'} true #{/set}
 
 
 <h1 class="page-header">&{'admin.blog.newPost.pageHeader'}</h1>
 <div class="page-container new-post">
-    #{form @newPost(), method:'POST', enctype:'multipart/form-data'}
-        <fieldset>
+  #{form @newPost(), method:'POST', enctype:'multipart/form-data'}
+    <fieldset>
 
-          <div class="form-group">
-            <label for="teaser-icon-input" class="control-label"></label>
-            <div class="col-sm-10">
-              <input
-                      id="teaser-icon-input"
-                      name="post.teaserIconUri"
-                      type="hidden"
-                      role="uploadcare-uploader"
-                      data-public-key="da6e9343b4ad6b89adc7"
-                      data-tabs="file camera url facebook gdrive gphotos dropbox instagram evernote flickr skydrive favorites"
-                      data-image-shrink=""
-                      data-images-only="true"
-                      data-preview-step="true"
-                      data-clearable="true"
-                      data-multiple="true"
-                      data-system-dialog="false"
-                      data-crop="300x300 minimum"
-              />
-            </div>
-          </div>
+      #{fields.enumRelationField bName:'post', name:'type' , values:models.PostType.values() /}
 
-          <div class="form-group">
-                <label for="post_title">&{'post.title'}</label>
-                <input type="text" class="form-control" id="post_title" name="post.title" placeholder="&{'post.title'}">
-            </div>
+      <div class="form-group">
+        <label for="post_title">&{'post.title'}</label>
+        <input type="text" class="form-control" id="post_title" name="post.title" placeholder="&{'post.title'}">
+      </div>
 
-            <div class="form-group">
-              <label for="header-icon-input">تصویر پست&{'admin.blog.newPost.headerIcon.label'}</label>
-              <input
-                      id="teaser-icon-input"
-                      name="post.iconUrl"
-                      type="hidden"
-                      role="uploadcare-uploader"
-                      data-public-key="da6e9343b4ad6b89adc7"
-                      data-tabs="file camera url facebook gdrive gphotos dropbox instagram evernote flickr skydrive favorites"
-                      data-image-shrink=""
-                      data-images-only="true"
-                      data-preview-step="true"
-                      data-clearable="true"
-                      data-multiple="false"
-                      data-system-dialog="false"
-                      data-crop="800x300 minimum"
-              />
-            </div>
+      <div class="form-group">
+        <label for="teaser-icon-input">&{'post.teaserIcon'}</label>
+          <input
+                  id="teaser-icon-input"
+                  name="post.teaserIconUrl"
+                  type="hidden"
+                  role="uploadcare-uploader"
+                  data-image-shrink=""
+                  data-images-only="true"
+                  data-preview-step="true"
+                  data-clearable="true"
+                  data-multiple="false"
+                  data-system-dialog="false"
+                  data-crop="300x300 minimum"
+          />
+      </div>
 
-            <div class="form-group">
-              <label for="post-tags">برچسب‌ها&{'admin.blog.newPost.tags.label'}</label>
-              <input id="post-tags" disabled>
-            </div>
+      <div class="form-group">
+        <label for="header-icon-input">&{'admin.blog.newPost.headerIcon.label'}</label>
+        <input
+                id="header-icon-input"
+                name="post.iconUrl"
+                type="hidden"
+                role="uploadcare-uploader"
+                data-image-shrink=""
+                data-images-only="true"
+                data-preview-step="true"
+                data-clearable="true"
+                data-multiple="false"
+                data-system-dialog="false"
+                data-crop="800x300 minimum"
+        />
+      </div>
 
+      #{fields.relationField bName:'post',name:'tags',values:models.Tag.findAll() , selected:post?.tags , chosen:true /}
+      #{a @showTags() , target:'_blank',class:'btn btn-default'}&{'blog.show-tags'}#{/a}
+      <br>
 
-            <div class="form-group">
-                <label for="post_content">&{'post.content'}</label>
-                <textarea class="form-control summernote" name="post.content">${post?.content}</textarea>
-            </div>
+      <div class="form-group">
+          <label for="post_content">&{'post.content'}</label>
+          <textarea class="form-control summernote" name="post.content">${post?.content}</textarea>
+      </div>
 
-            #{fields.checkField bName:'post',name:'isPublished' , value:post?.isPublished /}
+      <div class="form-group">
+        <label for="post_content">&{'post.excerpt'}</label>
+        <textarea class="form-control summernote" name="post.excerpt">${post?.excerpt}</textarea>
+      </div>
 
-            <button type="submit" class="btn btn-primary">&{'blog.save'}</button>
-        </fieldset>
-    #{/form}
+      #{fields.checkField bName:'post',name:'isPublished' , value:post?.isPublished /}
+
+      <button type="submit" class="btn btn-primary">&{'blog.save'}</button>
+    </fieldset>
+  #{/form}
 
 </div>
 
@@ -83,32 +83,12 @@
 
     <!-- Uploadcare widget -->
     <script>
-        UPLOADCARE_PUBLIC_KEY = 'da6e9343b4ad6b89adc7';
-        UPLOADCARE_TABS = 'file camera url facebook gdrive gphotos dropbox instagram evernote favorites';
+        UPLOADCARE_PUBLIC_KEY = '8058bb6092e462aa47dd';
+        UPLOADCARE_TABS = 'file camera url facebook gdrive gphotos dropbox instagram evernote';
         UPLOADCARE_PREVIEW_STEP = true;
         UPLOADCARE_CLEARABLE = true;
     </script>
     <script charset="utf-8" src="https://ucarecdn.com/libs/widget/2.10.3/uploadcare.full.min.js"></script>
-    <script>
-        function favoriteFiles(container, button, dialogApi, settings) {
-            $.each(settings.favoriteFiles, function(i, uuid) {
-                container.append($('<img>', {
-                        'class': 'favorite-files-image',
-                        'src': settings.cdnBase + '/' + uuid + '/-/scale_crop/280x280/center/',
-                    })
-                    .on('click', function(e) {
-                        dialogApi.addFiles([uploadcare.fileFrom('uploaded', uuid, settings)])
-                    })
-                );
-            });
-        }
-        uploadcare.registerTab('favorites',  favoriteFiles);
-        UPLOADCARE_LOCALE_TRANSLATIONS = {
-            dialog: {tabs: {names: {
-                favorites: 'Faves'
-            }}}
-        };
-    </script>
 <!--
 
 //-->

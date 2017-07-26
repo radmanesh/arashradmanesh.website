@@ -56,11 +56,16 @@
 						</ul>
 					</li>
 					<li class="active"><a href="@{Blog.index()}">بلاگ</a></li>
-                    #{secure.check models.AccountRole.ADMINISTRATOR}
-                    <li><a href="@{Settings.index()}">تنظیمات</a></li>
-                    #{/secure.check}
+          #{if controllers.security.Security.connectedAccount()?.role?.ordinal() >= models.AccountRole.ADMINISTRATOR.ordinal()}
+            <li><a href="@{Settings.index()}">تنظیمات</a></li>
+            <li><a href="@{Admin.index()}">مدیریت</a></li>
+          #{/if}
+          #{ifnot controllers.security.Security.isConnected() }
+            <li><a href="@{security.Secure.login()}" class="">ورود</a></li>
+          #{/ifnot}
 				</ul>
-			
+
+
 			</div><!--/.nav-collapse -->			
 		</div>	
 	</nav>
@@ -117,15 +122,9 @@
 <footer id="underfooter">
     <div class="container">
         <div class="row">
-            
-            <div class="col-md-6 widget">
+            <div class="col-md-12 widget">
                 <div class="widget-body">
-                </div>
-            </div>
-
-            <div class="col-md-6 widget">
-                <div class="widget-body">
-                    <p class="text-right">
+                    <p class="text-center">
                         Copyright &copy; ۱۳۹۳, آرش رادمنش<br>
                          
                         طراح سایت: <a href="#" rel="designer">آرمان رادمنش</a> </p>

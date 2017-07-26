@@ -83,7 +83,15 @@ public class Comment extends Model {
         this.children.add(reply);
         reply.save();
         return reply;
+    }
 
+    public Comment reply(String authorName,String content) {
+        Comment reply = new Comment(this, content);
+        reply.authorName = authorName;
+        reply.save();
+        this.children.add(reply);
+        reply.save();
+        return reply;
     }
 
     public Comment getRoot() {

@@ -8,3 +8,5 @@ public/upload/images
 eclipse
 .settings
 modules
+public/upload
+data

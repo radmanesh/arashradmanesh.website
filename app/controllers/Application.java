@@ -3,12 +3,16 @@ package controllers;
 import java.util.List;
 
 import models.GalleryIcon;
+import models.Post;
+import models.PostType;
 import play.mvc.Controller;
 
 public class Application extends Controller {
 
     public static void index() {
-        Blog.index();
+        List<Post> blogPosts = Post.findWithType(PostType.BLOG,true);
+        List<Post> libraryPosts = Post.findWithType(PostType.LIBRARY,true);
+        render(blogPosts,libraryPosts);
     }
 
     public static void blog() {

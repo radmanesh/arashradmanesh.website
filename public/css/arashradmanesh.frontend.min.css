@@ -75,13 +75,23 @@
   font-style: italic;
 }
 /**
- Home Font
+ Homa Font
  */
 @font-face {
   font-family: 'Homa';
   src: local('BHoma'), local('Homa'), url('../fonts/BHoma.woff') format('woff'), url('../fonts/BHoma.ttf') format('truetype');
   src: url('../fonts/BHoma.eot');
   font-weight: normal;
+  font-style: normal;
+}
+/**
+ Titr
+ */
+@font-face {
+  font-family: 'Titr';
+  src: local('BTitr'), url('../fonts/BTitrBold.woff') format('woff'), url('../fonts/BTitrBold.ttf') format('truetype');
+  src: url('../fonts/BTitrBold.eot');
+  font-weight: bold;
   font-style: normal;
 }
 /*==========================================================================
@@ -430,6 +440,18 @@ img {
   font-size: 12px;
   line-height: 1.33;
   font-weight: bold;
+}
+.btn-sm {
+  padding: 5px 10px;
+  font-size: 14px;
+  line-height: 1.5;
+  border-radius: 3px;
+}
+.btn-xs {
+  padding: 1px 5px;
+  font-size: 14px;
+  line-height: 1.5;
+  border-radius: 3px;
 }
 .panel-cta {
   box-shadow: 0 0 0 1px #e1e1e1, 0 0 0 3px #fff, 0 0 0 4px #e1e1e1;

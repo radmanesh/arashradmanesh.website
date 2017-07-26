@@ -1,34 +1,24 @@
 package controllers;
 
-import java.io.File;
-import java.io.InputStream;
-import java.util.Date;
-import java.util.List;
-
-import models.Comment;
-import models.Configuration;
-import models.GalleryIcon;
-import models.Post;
-import play.Logger;
-import play.i18n.Messages;
-import play.libs.Codec;
-import play.libs.Files;
-import play.libs.WS;
-import play.libs.WS.HttpResponse;
+import models.*;
 import play.mvc.Controller;
-import play.mvc.Router;
-import play.vfs.VirtualFile;
+
+import java.util.List;
 
 public class Blog extends Controller {
 
     public static void index() {
-        List<Post> posts = Post.find("isPublished",true).fetch();
+        List<Post> posts = Post.find("isPublished=?1 and type=?2",true, PostType.BLOG).fetch();
         render(posts);
     }
 
+    public static void tagged(String tag){
+        List<Post> posts = Post.findByTagAndType(PostType.BLOG,tag);
+        render(posts,tag);
+    }
+
     public static void showBlogPost(Long id) {
-        Post post = null;
-        post = Post.findById(id);
+        Post post = Post.findById(id);
         notFoundIfNull(post);
 
         render(post);
@@ -37,13 +27,13 @@ public class Blog extends Controller {
     public static void getPostIcon(Long id) {
         final Post post = Post.findById(id);
         if (post == null)
-            notFound();
+            renderBinary(DefaultConstants.DEFAULT_POST_ICON_FILE);
 
         if(post.iconUrl!=null && !post.iconUrl.isEmpty())
             redirect(post.iconUrl);
 
         if (post.icon==null || !post.icon.exists())
-            renderBinary(new File("public/img/hands-big.png"));
+            renderBinary(DefaultConstants.DEFAULT_POST_ICON_FILE);
 
         response.setContentTypeIfNotSet(post.icon.type());
         java.io.InputStream binaryData = post.icon.get();
@@ -53,26 +43,17 @@ public class Blog extends Controller {
     public static void getPostTeaserIcon(Long id) {
         final Post post = Post.findById(id);
         if (post == null)
-            notFound();
+            renderBinary(DefaultConstants.DEFAULT_POST_TEASER_ICON_FILE);
 
-        if(post.iconUrl!=null && !post.iconUrl.isEmpty())
-            redirect(post.iconUrl);
+        if(post.teaserIconUrl!=null && !post.teaserIconUrl.isEmpty())
+            redirect(post.teaserIconUrl);
 
         if (post.teaserIcon==null || !post.teaserIcon.exists())
-            renderBinary(new File("public/img/hands.png"));
+            renderBinary(DefaultConstants.DEFAULT_POST_TEASER_ICON_FILE);
 
         response.setContentTypeIfNotSet(post.teaserIcon.type());
         java.io.InputStream binaryData = post.teaserIcon.get();
         renderBinary(binaryData);
-    }
-
-    public static void uploadEditorImage(File file) {
-        String name = file.getName();
-        String ext = name.substring(name.lastIndexOf("."));
-        File to = new File("public/upload/images/" + Codec.UUID() + ext);
-        Files.copy(file, to);
-        String url = Router.reverse(VirtualFile.open(to));
-        renderText(Router.getBaseUrl() + url);
     }
 
     public static void sendComment(Long id) {
@@ -89,9 +70,9 @@ public class Blog extends Controller {
         showBlogPost(id);
     }
     
-    public static void replyComment(Long commentId,String content){
+    public static void replyComment(Long commentId,String authorName, String content){
         Comment comment = Comment.findById(commentId);
-        comment.reply(content);
+        comment.reply(authorName,content);
         showBlogPost(comment.getRoot().getPost().id);
     }
 
@@ -101,8 +82,13 @@ public class Blog extends Controller {
             notFound();
 
         response.setContentTypeIfNotSet(gt.graphic.type());
-        java.io.InputStream binaryData = gt.graphic.get();
-        renderBinary(binaryData);
+        renderBinary(gt.graphic.get());
+    }
+
+    public static void downloadAttachment(Long id){
+        Attachment attachment = Attachment.findById(id);
+        notFoundIfNull(attachment);
+        renderBinary(attachment.file.getFile(),attachment.fileName);
     }
 
 }

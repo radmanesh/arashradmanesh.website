@@ -69,7 +69,7 @@
 	font-style: italic;
 }
 /**
- Home Font
+ Homa Font
  */
 @font-face {
 	font-family: 'Homa';
@@ -77,4 +77,14 @@
 	src: url('/public/fonts/BHoma.eot');
 	font-weight: normal;
 	font-style: normal;
+}
+/**
+ Titr
+ */
+@font-face {
+  font-family: 'Titr';
+  src: local('BTitr'), url('/public/fonts/BTitrBold.woff') format('woff'), url('/public/fonts/BTitrBold.ttf') format('truetype');
+  src: url('/public/fonts/BTitrBold.eot');
+  font-weight: bold;
+  font-style: normal;
 }

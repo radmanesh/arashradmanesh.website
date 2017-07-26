@@ -15,10 +15,10 @@
           <div class="comment-body">${_comment?.content}</div>
       </div>
       #{secure.check models.AccountRole.ADMINISTRATOR}
-        <div>
-          <div class="btn-group" role="group" aria-label="...">
-              <a href="@{Admin.setCommentConfirmation(_comment?.id,false)}" class="btn btn-danger ajax"><i class="fa fa-times"></i></a>
-              <a href="@{Admin.setCommentDeletion(_comment?.id,true)}" class="btn btn-danger ajax"><i class="fa fa-trash"></i></a>
+        <div class="text-left">
+          <div class="btn-group btn-group-xs" role="group" aria-label="...">
+            <a href="@{Admin.setCommentConfirmation(_comment?.id,false)}" class="btn btn-danger ajax btn-xs"><i class="fa fa-times"></i></a>
+              <a href="@{Admin.setCommentDeletion(_comment?.id,true)}" class="btn btn-danger ajax btn-xs"><i class="fa fa-trash"></i></a>
           </div>
         </div>
       #{/secure.check}
@@ -47,14 +47,14 @@
 
             <div class="comment-body">${_comment?.content}</div>
         </div>
-        <div>
-            <div class="btn-group" role="group" aria-label="...">
+        <div class="text-left">
+            <div class="btn-group btn-group-xs" role="group" aria-label="...">
                 #{if _comment?.deleted}
                 #{/if}
                 #{else}
-                    <a href="@{Admin.setCommentDeletion(_comment?.id,true)}" class="btn btn-danger ajax"><i class="fa fa-trash"></i></a>
+                    <a href="@{Admin.setCommentDeletion(_comment?.id,true)}" class="btn btn-danger ajax btn-xs"><i class="fa fa-trash"></i></a>
                     #{if _comment?.confirmed}
-                        <a href="@{Admin.setCommentConfirmation(_comment?.id,false)}" class="btn btn-danger ajax"><i class="fa fa-times"></i></a>
+                        <a href="@{Admin.setCommentConfirmation(_comment?.id,false)}" class="btn btn-danger ajax btn-xs"><i class="fa fa-times"></i></a>
                     #{/if}
                     #{else }
                         <a href="@{Admin.setCommentConfirmation(_comment?.id,true)}" class="btn btn-success ajax"><i class="fa fa-check"></i></a>

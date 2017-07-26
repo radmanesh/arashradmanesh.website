@@ -41,9 +41,9 @@
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-left">
           <li><a href="@{Application.index()}">بلاگ</a></li>
-          <li><a href="javascript:void()">کتابخانه</a></li>
-          <li><a href="javascript:void()">متفرقه</a></li>
-          <li><a href="javascript:void()">درباره</a></li>
+          <li><a href="javascript:void()" disabled >کتابخانه</a></li>
+          <li><a href="javascript:void()" disabled >متفرقه</a></li>
+          <li><a href="javascript:void()" disabled >درباره</a></li>
           <li><a href="@{Settings.index()}">تنظیمات</a></li>
         </ul>
         <form class="navbar-form navbar-left">
@@ -73,14 +73,14 @@
       $(function() {
         $('textarea.summernote').summernote({
           uploadcare: {
-            publicKey: 'da6e9343b4ad6b89adc7',
+            publicKey: '8058bb6092e462aa47dd',
             crop: 'free',
             tabs: 'all',
             tooltipText: 'Upload files or video or something',
             multiple: true
           },
           height: 300,
-          fontNames: ['Arial', 'Arial Black', 'Courier New', 'Helvetica','Impact','Lucida Grande','Tahoma','Verdana','Times','XB Roya','Iranian Sans','Traffic','Homa'],
+          fontNames: ['Arial', 'Arial Black', 'Courier New', 'Helvetica','Impact','Lucida Grande','Tahoma','Verdana','Times','XB Roya','Iranian Sans','Traffic','Homa','Titr'],
           fontNamesIgnoreCheck: ['Helvetica','XB Roya','Iranian Sans','Traffic','Homa'],
           // unfortunately you can only rewrite
           // all the toolbar contents, on the bright side
@@ -89,8 +89,6 @@
             ['uploadcare', ['uploadcare']], // here, for example
             ['style', ['style']],
             ['font', ['bold', 'italic', 'underline', 'clear']],
-            ['fontNames', ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Merriweather']],
-            ['fontNamesIgnoreCheck', ['Merriweather']],
             ['fontname', ['fontname']],
             //['fontNames', ['Arial','Impact']],
 
@@ -109,6 +107,16 @@
       });
     </script>
   #{/if}
+
+  #{if 'chosen'}
+    <script src="@{'/public/js/chosen.jquery.js'}" type="text/javascript"></script>
+    <script>
+      $(document).ready(function(){
+        $('[role="chosen"]').chosen();
+      });
+    </script>
+  #{/if}
+
   
   #{get 'moreScripts' /}
   

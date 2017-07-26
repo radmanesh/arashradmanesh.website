@@ -1,0 +1,27 @@
+#{extends 'admin.html' /}
+#{set title:'Tags' /}
+
+<div class="row topspace">
+  <div class="col-sm-8 col-sm-offset-2">
+    <p>&{'blog.tags.listTitle'}</p>
+    <ul class="">
+    #{list tags}
+      <li>${_?.name}</li>
+    #{/list}
+    </ul>
+    <hr>
+    #{form @addTag(),class:'form-inline',role:'form' }
+      <legend>&{'blog.tags.newTitle'}</legend>
+      #{fields.textField name:'name',label:play.i18n.Messages.get('tag.name') /}
+      <button type="submit" class="btn btn-primary">&{'general.submit'}</button>
+    #{/form}
+
+  </div>
+</div>
+
+<hr />
+<ul class="list-unstyled">
+#{list models.Tag.getCloud(), as:'t'}
+  <li>#{list t.keySet()} ${_} , ${t.get(_)} #{/list}</li>
+#{/list}
+</ul>

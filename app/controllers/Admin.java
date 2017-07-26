@@ -1,30 +1,44 @@
 package controllers;
 
-import java.io.File;
-import java.util.Date;
-import java.util.List;
-
 import controllers.security.Check;
 import controllers.security.Secure;
-import models.AccountRole;
-import models.Comment;
-import models.GalleryIcon;
-import models.Post;
+import models.*;
+import play.Logger;
+import play.data.FileUpload;
 import play.i18n.Messages;
 import play.libs.Codec;
 import play.libs.Files;
 import play.mvc.*;
 import play.vfs.VirtualFile;
+import utils.Utils;
+
+import java.io.File;
+import java.util.Date;
+import java.util.List;
 
 @With(Secure.class)
 @Check(AccountRole.ADMINISTRATOR)
 public class Admin extends Controller {
 
+    @Before
+    public static void debugBefore(){
+        try {
+            Logger.info("Action: %s , Params: %s",request.action,request.params.allSimple());
+
+        }catch (Exception ex){
+            Logger.debug(ex,"debugBefore");
+        }
+    }
+
+    @After
+    public static void debugAfter(){
+
+    }
+
     public static void index() {
         List<Post> posts = Post.all().fetch();
         render(posts);
     }
-
 
     public static void newPost(Post post) {
         List<GalleryIcon> teasers = GalleryIcon.find("byType", "teaser").fetch();
@@ -66,13 +80,13 @@ public class Admin extends Controller {
             }
         }
 
-        if (post.teaserIconUrl != null && !post.teaserIconUrl.isEmpty()) {
-            GalleryIcon.createFromUrl(post.teaserIconUrl, "teaser");
-        }
-
-        if (post.iconUrl != null && !post.iconUrl.isEmpty()) {
-            GalleryIcon.createFromUrl(post.iconUrl, "header");
-        }
+//        if (post.teaserIconUrl != null && !post.teaserIconUrl.isEmpty()) {
+//            GalleryIcon.createFromUrl(post.teaserIconUrl, "teaser");
+//        }
+//
+//        if (post.iconUrl != null && !post.iconUrl.isEmpty()) {
+//            GalleryIcon.createFromUrl(post.iconUrl, "header");
+//        }
 
         post.save();
 
@@ -88,7 +102,15 @@ public class Admin extends Controller {
             render(post);
         }
 
+        String teaserIcon = post.teaserIconUrl;
+        String postIcon = post.iconUrl;
+
         post.edit(params.getRootParamNode(), "post");
+
+        if(!Utils.isEmptyString(postIcon) && Utils.isEmptyString(post.iconUrl))
+            post.iconUrl = postIcon;
+        if(!Utils.isEmptyString(teaserIcon) && Utils.isEmptyString(post.teaserIconUrl))
+            post.teaserIconUrl = teaserIcon;
 
         validation.valid(post);
         if (validation.hasErrors()) {
@@ -97,18 +119,18 @@ public class Admin extends Controller {
             render(post);
         }
 
-        if (post.teaserIconUrl != null && !post.teaserIconUrl.isEmpty()) {
+        post.modifiedAt = new Date();
+        post.save();
+        flash.success(Messages.get("blog.success"));
+
+        if (Utils.isEmptyString(post.teaserIconUrl)) {
             GalleryIcon.createFromUrl(post.teaserIconUrl, "teaser");
         }
-        if (post.iconUrl != null && !post.iconUrl.isEmpty()) {
+        if (Utils.isEmptyString(post.iconUrl)) {
             GalleryIcon.createFromUrl(post.iconUrl, "header");
         }
 
-        post.modifiedAt = new Date();
-        post.save();
-
-        flash.success(Messages.get("blog.success"));
-        index();
+        showBlogPost(id);
     }
 
     public static void deletePost(Long id) {
@@ -125,35 +147,18 @@ public class Admin extends Controller {
     }
 
     public static void showBlogPost(Long id) {
-        Post post = null;
-        post = Post.findById(id);
+        Post post = Post.findById(id);
         notFoundIfNull(post);
 
         render(post);
     }
 
     public static void getPostIcon(Long id) {
-        final Post post = Post.findById(id);
-        if (post == null)
-            notFound();
-        if (!post.icon.exists())
-            renderBinary(new File("public/img/hands-big.png"));
-
-        response.setContentTypeIfNotSet(post.icon.type());
-        java.io.InputStream binaryData = post.icon.get();
-        renderBinary(binaryData);
+        Blog.getPostIcon(id);
     }
 
     public static void getPostTeaserIcon(Long id) {
-        final Post post = Post.findById(id);
-        if (post == null)
-            notFound();
-        if (!post.teaserIcon.exists())
-            renderBinary(new File("public/img/hands.png"));
-
-        response.setContentTypeIfNotSet(post.teaserIcon.type());
-        java.io.InputStream binaryData = post.teaserIcon.get();
-        renderBinary(binaryData);
+        Blog.getPostTeaserIcon(id);
     }
 
     public static void uploadEditorImage(File file) {
@@ -166,13 +171,7 @@ public class Admin extends Controller {
     }
 
     public static void renderGraphicTemplate(Long id) {
-        final GalleryIcon gt = GalleryIcon.findById(id);
-        if (gt == null)
-            notFound();
-
-        response.setContentTypeIfNotSet(gt.graphic.type());
-        java.io.InputStream binaryData = gt.graphic.get();
-        renderBinary(binaryData);
+        Blog.renderGraphicTemplate(id);
     }
 
     public static void setCommentConfirmation(Long id,boolean value){
@@ -196,5 +195,42 @@ public class Admin extends Controller {
             showBlogPost(postId);
         }
         index();
+    }
+
+    public static void showTags(){
+        List<Tag> tags = Tag.findAll();
+        Logger.info("tagCloud: %s",Tag.getCloud().get(0));
+        render(tags);
+    }
+
+    public static void addTag(){
+        String tagName = request.params.get("name");
+        if(!Utils.isEmptyString(tagName)){
+            Tag.findOrCreateByName(tagName).save();
+        }
+        showTags();
+    }
+
+    public static void addAttachmentToPost(Long postId,FileUpload attachment){
+        notFoundIfNull(postId);
+        Post post = Post.findById(postId);
+        notFoundIfNull(post);
+        notFoundIfNull(attachment);
+        Attachment attach = new Attachment(post,attachment);
+        post.attachments.add(attach);
+        attach.save();
+
+        updatePost(postId);
+        //renderText(Router.reverse(VirtualFile.open( post.addAttachment(upload.asFile()) )));
+    }
+
+    public static void removeAttachment(Long id){
+        Attachment attachment = Attachment.findById(id);
+        notFoundIfNull(attachment);
+        final Long postId = attachment.parent.id;
+        attachment.parent.attachments.remove(attachment);
+        attachment.parent.save();
+        attachment.delete();
+        updatePost(postId);
     }
 }

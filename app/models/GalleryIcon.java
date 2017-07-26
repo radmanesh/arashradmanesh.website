@@ -27,30 +27,36 @@ public class GalleryIcon extends Model {
 	}
 	
 	public static void createFromUrl(final String url,final String type){
-	    if(GalleryIcon.count("originalUrl", url)>0)
-	        return;
-	    Job createJob = new Job(){	        
-	        /* (non-Javadoc)
-	         * @see play.jobs.Job#doJob()
-	         */
-	        @Override
-	        public void doJob() throws Exception {
-	            try {
-	                HttpResponse response = WS.url(url).get();
-	                if(response.success() ){ //&& response.getContentType()==
-	                    GalleryIcon gt = new GalleryIcon(type);
-	                    gt.graphic.set(response.getStream(), response.getContentType());
-	                    gt.originalUrl = url;
-	                    gt.fileName = utils.Utils.extractFileNameFromUrl(url);
-	                    gt.description = gt.fileName;
-	                    Logger.info("createFromUrl , contentType: %s , url: %s", response.getContentType(),url);
-	                    gt.save();	                    
-	                }
-	            } catch (Exception e) {
-	                Logger.warn(e, "createFromUrl");
-	            }	            
-	        }
-	    };
-	    createJob.now();
+	    try{
+            if(GalleryIcon.count("originalUrl", url)>0)
+                return;
+            Job createJob = new Job(){
+                /* (non-Javadoc)
+                 * @see play.jobs.Job#doJob()
+                 */
+                @Override
+                public void doJob() throws Exception {
+                    try {
+                        HttpResponse response = WS.url(url).get();
+                        if(response.success() ){ //&& response.getContentType()==
+                            GalleryIcon gt = new GalleryIcon(type);
+                            Logger.info("responseType: %s",response.getContentType());
+                            gt.graphic.set(response.getStream(), response.getContentType());
+                            gt.originalUrl = url;
+                            gt.fileName = utils.Utils.extractFileNameFromUrl(url);
+                            gt.description = gt.fileName;
+                            Logger.info("createFromUrl , contentType: %s , url: %s", response.getContentType(),url);
+                            gt.save();
+                        }
+                    } catch (Exception e) {
+                        Logger.warn(e, "createFromUrl");
+                    }
+                }
+            };
+            createJob.now();
+
+        }catch (Exception e){
+            Logger.info(e,"createFromUrl: %s , type: %s ",url,type);
+        }
 	}
 }

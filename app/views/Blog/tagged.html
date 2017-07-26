@@ -1,0 +1,11 @@
+#{extends 'main2.html' /}
+#{set title:'Blog' /}
+
+<div class="row topspace">
+  <div class="col-sm-8 col-sm-offset-2">
+    <h3 class="page-header">&{'blog.tagged.pageHeader',posts.size(),tag}</h3>
+    #{list posts}
+      #{blog.post post:_ , as:'mini' /}
+    #{/list}
+  </div>
+</div>
