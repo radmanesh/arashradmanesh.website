@@ -9,7 +9,7 @@
       <div class="col-sm-6 col-md-3">
         <h3 class="text-center">${_?.title}</h3>
         <p>${_?.excerpt?.raw()}</p>
-        <p class="text-center"><a href="@{Blog.showBlogPost(_?.id)}" class="btn btn-action">Read more</a></p>
+        <p class="text-center"><a href="@{Blog.showBlogPost(_?.id)}" class="btn btn-action">&{'home.blog.readMore'}</a></p>
       </div>
     #{/list}
   </div>
@@ -25,26 +25,13 @@
         <a class="thumbnail" href="@{Blog.showBlogPost(_?.id)}">
 						<span class="img">
 							<img src="@{Blog.getPostTeaserIcon(_?.id)}" alt="">
-							<span class="cover"><span class="more">See details &rarr;</span></span>
+							<span class="cover"><span class="more">&{'home.library.seeDetails'}</span></span>
 						</span>
           <span class="title">${_?.title}</span>
         </a>
         <p>${_?.excerpt?.raw()}</p>
       </div>
     #{/list}
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-      <a class="thumbnail" href="sidebar-right.html">
-						<span class="img">
-							<img src="assets/images/s1.jpg" alt="">
-							<span class="cover"><span class="more">See details &rarr;</span></span>
-						</span>
-        <span class="title">Sample title - big data solutions</span>
-      </a>
-      <span class="details"><a href="">Web design</a> | <a href="">Wordpress</a> | <a href="">Logotype</a></span>
-      <h4></h4>
-      <p></p>
-    </div>
-
   </div>
 </div>
 

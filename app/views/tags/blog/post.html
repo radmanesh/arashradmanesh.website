@@ -15,7 +15,7 @@
         <img src="@{Blog.getPostIcon(_post?.id)}" alt="Post icon"></img>
       </p>
       ${_post?.createExcerpt()?.raw()}
-      <a href="@{Blog.showBlogPost(_post?.id)}" class="more-link">ادامهٔ مطلب&#8230;</a>
+      <a href="@{Blog.showBlogPost(_post?.id)}" class="more-link">&{'home.blog.readMore'}</a>
     </div>
   </article>
 #{/if}
