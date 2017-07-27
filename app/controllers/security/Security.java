@@ -21,6 +21,10 @@ public class Security extends Controller {
    */
   static boolean authenticate(String username, String password) {
     Account account = Account.find("byEmail", username).first();
+    if(account !=null && account.needConfirmation!=null){
+        flash.put("notconfirmed", account.needConfirmation);
+        flash.put("email", username);
+    }
     return (account != null) && (account.confirmed) && (!account.deleted)
         && account.checkPassword(password);
   }
@@ -89,8 +93,7 @@ public class Security extends Controller {
   /**
    * This method is called if a check does not succeed. By default it shows the
    * not allowed page (the controller forbidden method).
-   * 
-   * @param profile
+   *
    */
   static void onCheckFailed() {
     forbidden();

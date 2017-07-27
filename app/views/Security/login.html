@@ -1,57 +1,64 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>&{'security.LoginPageTitle'}</title>
-        <meta charset="UTF-8">
+<head>
+  <title>&{'security.LoginPageTitle'}</title>
+  <meta charset="UTF-8">
 
-        <link rel="shortcut icon" type="image/png" href="@{'/public/img/favicon.png'}">
+  <link rel="shortcut icon" type="image/png" href="@{'/public/img/favicon.png'}">
 
-        <link rel="stylesheet" media="screen" href="@{'/public/css/bootstrap.min.css'}">
-        #{if lang=="fa"}
-        <link rel="stylesheet" media="screen" href="@{'/public/css/bootstrap-rtl.min.css'}">
-        #{/if}
-        <link rel="stylesheet" media="screen" href="@{'/public/css/site.css'}">
-        <link rel="stylesheet" media="screen" href="@{'/public/css/login.css'}">
-    </head>
-    <body>    
-		<section class="container" id="login">
-	       <div class="row">
-	           <div class="col-lg-4 col-lg-offset-4">
-	        #{if flash.error}
-	           <div class="alert alert-danger error">
-	               &{flash.error}
-	           </div>
-	        #{/if}
-	        #{if flash.success}
-	           <div  class="alert alert-success success">
-	               &{flash.success}
-	           </div>
-	        #{/if}
-	           </div>
-	        </div>
-	        
-	        <div class="row">
-	           <div class="col-md-4 col-md-offset-4">
-		        <div class="panel panel-default">
-			        <!-- <div class="panel-heading">
+  <link rel="stylesheet" media="screen" href="@{'/public/css/bootstrap.min.css'}">
+#{if lang=="fa"}
+  <link rel="stylesheet" media="screen" href="@{'/public/css/bootstrap-rtl.min.css'}">
+#{/if}
+  <link rel="stylesheet" media="screen" href="@{'/public/css/site.css'}">
+  <link rel="stylesheet" media="screen" href="@{'/public/css/login.css'}">
+</head>
+<body>
+<section class="container" id="login">
+  <div class="row">
+    <div class="col-lg-4 col-lg-offset-4">
+    #{if flash.error}
+      <div class="alert alert-danger error">
+      &{flash.error}
+      </div>
+    #{/if}
+    #{if flash.success}
+      <div class="alert alert-success success">
+      &{flash.success}
+      </div>
+    #{/if}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4 col-md-offset-4">
+      <div class="panel panel-default">
+        <!-- <div class="panel-heading">
 			           <h3 class="panel-title">&{'security.LoginLegend'}</h3>
 			        </div> -->
-			        <div class="panel-body">
-					    <form class="form-signin" role="form" action="@{security.Secure.authenticate()}" method="POST">		     
-					        <input type="email" name="username" id="username" class="form-control" placeholder="&{'security.Username'}" required autofocus value="${flash.email}">
-					        <input type="password" name="password" id="password" class="form-control" placeholder="&{'security.Password'}" required>
-					        <label class="checkbox">
-					            <input type="checkbox" name="remember" id="remember" ${flash.remember ? 'checked="true"' : ''}>&nbsp;&nbsp;&{'security.RememberMe'}
-					        </label>
-					        <button type="submit" class="btn btn-lg btn-default btn-grayscale btn-block">&{'security.SignIn'}</button>
-					    </form>
-				    </div> <!-- /panel-body -->
-			    </div> <!-- panel -->
-			   </div>
-		    </div>
-	    </section> <!-- /container -->
-	    
-        <script src="@{'/public/js/jquery.min.js'}" type="text/javascript" charset="UTF-8"></script>
-        <script src="@{'/public/js/bootstrap.min.js'}" type="text/javascript" charset="UTF-8"></script>
-    </body>
+        <div class="panel-body">
+          <form class="form-signin" role="form" action="@{security.Secure.authenticate()}" method="POST">
+            <input type="email" name="username" id="username" class="form-control" placeholder="&{'security.Username'}"
+                   required autofocus value="${flash.email}">
+            <input type="password" name="password" id="password" class="form-control"
+                   placeholder="&{'security.Password'}" required>
+            <label class="checkbox">
+              <input type="checkbox" name="remember" id="remember" ${flash.remember ? 'checked="true"' : ''}>&nbsp;&nbsp;&{'security.RememberMe'}
+            </label>
+            <button type="submit" class="btn btn-lg btn-default btn-grayscale btn-block">&{'security.SignIn'}</button>
+          </form>
+        </div> <!-- /panel-body -->
+      </div> <!-- panel -->
+      #{if flash.notconfirmed}
+        <p>
+          <a class="action" href="@{Registration.resendConfirmation(flash.notconfirmed)}">Resend a confirmation email</a>
+        </p>
+      #{/if}
+    </div>
+  </div>
+</section> <!-- /container -->
+
+<script src="@{'/public/js/jquery.min.js'}" type="text/javascript" charset="UTF-8"></script>
+<script src="@{'/public/js/bootstrap.min.js'}" type="text/javascript" charset="UTF-8"></script>
+</body>
 </html>

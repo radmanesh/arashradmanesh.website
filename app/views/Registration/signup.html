@@ -1,0 +1,32 @@
+#{extends 'main.html' /}
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <form action="@{Registration.register}" method="post" role="form" accept-charset="${_response_encoding}">
+      <legend>Signup</legend>
+
+      <div class="form-group">
+        <label for="email-input">Email</label>
+        <input type="text" class="form-control" name="email" value="${flash.email}" id="email-input" placeholder="Email">
+      </div>
+      <div class="form-group">
+        <label for="fullname-input">Full Name</label>
+        <input type="text" class="form-control" name="fullname"  value="${flash.fullname}" id="fullname-input" placeholder="Full Name">
+      </div>
+      <div class="form-group">
+        <label for="password-input">Password</label>
+        <input type="password" class="form-control" name="password"  value="${flash.password}" id="password-input" placeholder="Password must be at least 5 characters">
+        <span id="password-help" class="help-block">Enter your desired password twice. It must be at least 5 characters.</span>
+      </div>
+      <div class="form-group">
+        <label for="password2-input">Confirm Password</label>
+        <input type="password" class="form-control" name="password2"  value="${flash.password1}" id="password2-input" placeholder="Confirm Password">
+      </div>
+      <div class="form-group">
+        <label for="website-input">Website</label>
+        <input type="url" class="form-control" name="website" value="${flash.website}" id="website-input" placeholder="http://www.example.com">
+      </div>
+
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+</div>

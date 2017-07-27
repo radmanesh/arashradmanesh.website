@@ -57,11 +57,11 @@
 					</li>
 					<li class="active"><a href="@{Blog.index()}">بلاگ</a></li>
           #{if controllers.security.Security.connectedAccount()?.role?.ordinal() >= models.AccountRole.ADMINISTRATOR.ordinal()}
-            <li><a href="@{Settings.index()}">تنظیمات</a></li>
+            <li><a href="@{Settings.index()}"><i class="fa fa-cogs"></i></a></li>
             <li><a href="@{Admin.index()}">مدیریت</a></li>
           #{/if}
           #{ifnot controllers.security.Security.isConnected() }
-            <li><a href="@{security.Secure.login()}" class="">ورود</a></li>
+            <li><a href="@{security.Secure.login()}" class=""><i class="fa fa-sign-in"></i></a></li>
           #{/ifnot}
 				</ul>
 
