@@ -7,3 +7,4 @@ models.Account(admin):
     role:               SUPERUSER
     confirmed:          true
     configs:            null
+    website:            http://arashradmanesh.info

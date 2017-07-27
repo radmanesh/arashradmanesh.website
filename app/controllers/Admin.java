@@ -199,7 +199,6 @@ public class Admin extends Controller {
 
     public static void showTags(){
         List<Tag> tags = Tag.findAll();
-        Logger.info("tagCloud: %s",Tag.getCloud().get(0));
         render(tags);
     }
 
