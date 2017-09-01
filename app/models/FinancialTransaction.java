@@ -1,5 +1,6 @@
 package models;
 
+import org.hibernate.annotations.Type;
 import play.db.jpa.Model;
 
 import javax.persistence.Entity;
@@ -25,9 +26,11 @@ public class FinancialTransaction extends Model {
     public String description;
 
     @Lob
+    @Type(type="org.hibernate.type.TextType")
     public String shetabCreationResult;
 
     @Lob
+    @Type(type="org.hibernate.type.TextType")
     public String shetabCallbackResult;
 
     public String shetabUID;
