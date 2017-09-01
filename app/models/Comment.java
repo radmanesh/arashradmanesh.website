@@ -13,6 +13,7 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.Type;
 import play.data.validation.Email;
 import play.data.validation.URL;
 import play.db.jpa.Model;
@@ -33,6 +34,7 @@ public class Comment extends Model {
     public Comment parent;
 
     @Lob
+    @Type(type="org.hibernate.type.TextType")
     public String content;
 
     @Column(columnDefinition = "tinyint(1) default 0")

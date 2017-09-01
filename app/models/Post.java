@@ -10,6 +10,7 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.Type;
 import play.Logger;
 import play.data.Upload;
 import play.data.validation.URL;
@@ -28,9 +29,11 @@ public class Post extends Model {
     public String title;
 
     @Lob
+    @Type(type="org.hibernate.type.TextType")
     public String content;
 
     @Lob
+    @Type(type="org.hibernate.type.TextType")
     public String excerpt;
 
     public PostType type;
