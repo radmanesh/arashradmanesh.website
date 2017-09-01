@@ -25,10 +25,10 @@ public class Publication extends Model {
     @Min(DefaultConstants.DEFAULT_MIN_PRICE)
     public Integer minPrice = new Integer((int)DefaultConstants.DEFAULT_MIN_PRICE);
 
-    @Column(columnDefinition = "tinyint(1) default 0")
+    //@Column(columnDefinition = "tinyint(1) default 0")
     public Boolean freeDownload = Boolean.FALSE;
 
-    @Column(columnDefinition = "tinyint(1) default 0")
+    //@Column(columnDefinition = "tinyint(1) default 0")
     public Boolean fixedPrice = Boolean.FALSE;
 
     public Publication() {

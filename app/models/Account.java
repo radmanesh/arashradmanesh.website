@@ -6,10 +6,7 @@ import play.db.jpa.Model;
 import play.i18n.Messages;
 import play.libs.Codec;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,8 +30,10 @@ public class Account extends Model {
     @Required
     public String fullname;
 
+    @Column(columnDefinition = "boolean default false")
     public boolean confirmed = false;
 
+    @Column(columnDefinition = "boolean default false")
     public boolean deleted = false;
 
     public String needConfirmation;

@@ -37,10 +37,12 @@ public class Comment extends Model {
     @Type(type="org.hibernate.type.TextType")
     public String content;
 
-    @Column(columnDefinition = "tinyint(1) default 0")
+    //@Column(columnDefinition = "tinyint(1) default 0")
+    @Column(columnDefinition = "boolean default false")
     public Boolean confirmed = false;
 
-    @Column(columnDefinition = "tinyint(1) default 0")
+    //@Column(columnDefinition = "tinyint(1) default 0")
+    @Column(columnDefinition = "boolean default false")
     public Boolean deleted = false;
 
     public String authorName;

@@ -54,7 +54,8 @@ public class Post extends Model {
 
     public String author;
 
-    @Column(columnDefinition = "tinyint(1) default 0")
+    //@Column(columnDefinition = "tinyint(1) default 0")
+    @Column(columnDefinition = "boolean default false")
     public Boolean isPublished = Boolean.FALSE;
 
     @OneToMany(mappedBy = "post")
